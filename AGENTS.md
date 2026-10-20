@@ -15,3 +15,4 @@
 - Both enquiry forms share client/server Zod validation and a dedicated server function; private submissions and photo uploads use server-only writes after same-origin checks, with no visitor read access.
 - Email sending must remain disabled until the requested connector is linked and a verified sender is available; stored submissions must never be described as emailed.
 - The sticker shop lives on its own route (/shop) with catalogue data in src/lib/shop-data.ts and images bundled in src/assets/images/shop, because it is too large for the one-page layout.
+- Shop orders are priced server-side from the catalogue (priceCart) and stored in shop_orders via server-only writes; the browser cart only holds motif ids, quantity and foil option.
