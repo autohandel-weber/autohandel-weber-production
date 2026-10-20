@@ -42,6 +42,9 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  /* Markenfarbe von WhatsApp für den Chat-Button */
+  --color-whatsapp: oklch(0.76 0.18 145);
+  --color-whatsapp-foreground: oklch(0.99 0 0);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
