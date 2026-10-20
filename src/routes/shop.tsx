@@ -108,11 +108,23 @@ function Shop() {
           <p className="hero-in mb-4 kicker text-accent">Weber Beschriftungen</p>
           <h1 className="hero-in font-display text-5xl min-[380px]:text-6xl leading-[0.9] md:text-8xl" style={{ animationDelay: "150ms" }}>Aufkleber-Shop<br />& Preise</h1>
           <p className="hero-in mt-6 max-w-2xl body-text text-ink-foreground/75" style={{ animationDelay: "300ms" }}>
-            Über 220 Motive für Auto, Motorrad, Anhänger oder Wand – in vielen Folienfarben. Wählen Sie Ihr Motiv und senden Sie uns eine Anfrage, wir beraten Sie gerne.
+            Über 220 fertige Motive als Folien-Aufkleber – oder Ihr eigenes Motiv im Digitaldruck. Wählen Sie, was zu Ihnen passt.
           </p>
-          <div className="hero-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: "450ms" }}>
-            {SHOP.map((g) => <a key={g.group} href={`#${g.group.toLowerCase()}`} className="rounded-sm border border-ink-foreground/30 px-4 py-2 font-semibold hover:border-accent">{g.group}</a>)}
-            <a href="#digitaldruck" className="rounded-sm border border-ink-foreground/30 px-4 py-2 font-semibold hover:border-accent">Digitaldruck</a>
+          <div className="hero-in mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" style={{ animationDelay: "450ms" }}>
+            <div className="rounded-lg border border-ink-foreground/20 p-6">
+              <p className="kicker text-accent">Folien-Aufkleber</p>
+              <p className="mt-2 text-sm text-ink-foreground/70">Fertige Motive, aus einfarbiger Folie geschnitten – Farbe frei wählbar.</p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {SHOP.map((g) => <a key={g.group} href={`#${g.group.toLowerCase()}`} className="rounded-sm border border-ink-foreground/30 px-4 py-2 font-semibold hover:border-accent">{g.group}</a>)}
+              </div>
+            </div>
+            <div className="rounded-lg border border-ink-foreground/20 p-6">
+              <p className="kicker text-accent">Digitaldruck</p>
+              <p className="mt-2 text-sm text-ink-foreground/70">Ihr eigenes Bild oder Logo, farbig gedruckt.</p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <a href="#digitaldruck" className="rounded-sm border border-ink-foreground/30 px-4 py-2 font-semibold hover:border-accent">Eigenes Motiv</a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -145,7 +157,7 @@ function Shop() {
       <section id="digitaldruck" className="scroll-mt-20 bg-secondary">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2">
           <div>
-            <SectionHead kicker="Ihr eigenes Motiv" title="Digitaldruck" />
+            <SectionHead kicker="Digitaldruck" title="Eigenes Motiv" />
             <p className="body-text text-muted-foreground">Senden Sie uns Ihr Wunschbild, das als Kleber oder Poster gedruckt werden soll. Auch Blachendruck ist für uns kein Problem.</p>
             <p className="mt-5 body-text text-muted-foreground">T-Shirts und Sweatshirts (Fabrikat Switcher) bedrucken wir mit Ihrem Logo oder Foto – auch Druck auf Ihr eigenes T-Shirt ist möglich.</p>
             <p className="mt-6 font-display text-3xl text-primary">Preise auf Anfrage</p>

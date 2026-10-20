@@ -73,10 +73,15 @@ function Warenkorb() {
         </div>
       </header>
 
+      <section className="bg-ink text-ink-foreground">
+        <div className="mx-auto max-w-7xl px-6 py-14">
+          <p className="hero-in mb-2 kicker text-accent">Aufkleber-Shop</p>
+          <h1 className="hero-in heading-section" style={{ animationDelay: "150ms" }}>{done ? "Vielen Dank" : "Warenkorb"}</h1>
+        </div>
+      </section>
+      <div className="bg-secondary">
       <main className="mx-auto max-w-7xl px-6 py-16">
         {done ? <Confirmation done={done} /> : <>
-          <p className="mb-2 kicker text-primary">Aufkleber-Shop</p>
-          <h1 className="heading-section mb-10">Warenkorb</h1>
           {!priced || priced.items.length === 0 ? (
             <div className="rounded-lg border border-border bg-card p-10 text-center">
               <ShoppingCart className="mx-auto h-10 w-10 text-muted-foreground" />
