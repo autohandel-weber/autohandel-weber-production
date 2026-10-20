@@ -77,6 +77,9 @@ function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
   );
 }
 
+/** Sections alternate light/light-blue; the index counts every section after the hero so no two neighbours match. */
+const sectionBg = (i: number): string => (i % 2 ? "bg-secondary" : "");
+
 function SectionHead({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div className="mb-10">
