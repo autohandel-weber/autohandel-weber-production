@@ -14,3 +14,4 @@
 - [ ] TWINT-QR-Code auf der Bestätigungsseite einsetzen. Blocker: QR-Code vom Kunden ausstehend.
 - [ ] Bankverbindung (IBAN) für Einzahlungsschein. Blocker: Angabe vom Kunden.
 - [x] Warenkorb und Bestellung mit TWINT/Einzahlungsschein
+- [x] Abschnittshintergründe wechseln auf Startseite und Shop strikt ab (dunkel/hellblau/ weiss); im Browser pixelweise geprüft
