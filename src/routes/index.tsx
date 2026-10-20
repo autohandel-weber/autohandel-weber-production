@@ -334,15 +334,35 @@ function SectionHead({ kicker, title }: { kicker: string; title: string }) {
   );
 }
 
+const SELECTS = [
+  { name: "Getriebe", options: ["Automatik", "Handgeschaltet", "Halbautomat"] },
+  { name: "Treibstoff", options: ["Benzin", "Diesel", "Hybrid", "Elektro"] },
+  { name: "Fahrzeugart", options: ["Limousine", "Kombi / Van", "Cabrio", "Jeep"] },
+] as const;
+
 function Ankauf() {
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState<null | "shared" | "mail">(null);
+  const [photos, setPhotos] = useState<File[]>([]);
   const fields = ["Marke", "Modell", "Jahrgang", "Kilometer", "Name", "Telefon", "E-Mail"];
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const d = new FormData(e.currentTarget);
-    const body = [...fields, "Bemerkungen"].map((f) => `${f}: ${d.get(f) ?? ""}`).join("\n");
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Auto verkaufen")}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    const keys = [...fields.slice(0, 4), ...SELECTS.map((s) => s.name), ...fields.slice(4), "Bemerkungen"];
+    const body = keys.map((f) => `${f}: ${d.get(f) ?? ""}`).join("\n");
+    const subject = "Auto verkaufen";
+    // Auf Handys: Fotos direkt mitschicken über das Teilen-Menü (z. B. Mail oder WhatsApp).
+    if (photos.length && navigator.canShare?.({ files: photos })) {
+      try {
+        await navigator.share({ title: subject, text: `An: ${EMAIL}\n\n${body}`, files: photos });
+        setSent("shared");
+        return;
+      } catch {
+        /* abgebrochen → weiter mit E-Mail */
+      }
+    }
+    const note = photos.length ? `\n\nFotos (${photos.length}) bitte an diese E-Mail anhängen.` : "";
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body + note)}`;
+    setSent("mail");
   };
   const input = "w-full rounded-sm border border-input bg-background px-3 py-2.5 outline-none focus:border-primary";
   return (
@@ -350,21 +370,59 @@ function Ankauf() {
       <div>
         <SectionHead kicker="Ankauf" title="Sie möchten Ihr Auto verkaufen?" />
         <p className="text-lg text-muted-foreground">
-          Senden Sie uns ein paar Angaben zu Ihrem Fahrzeug – wir melden uns mit einem fairen Angebot. Fotos können Sie gerne per E-Mail nachreichen.
+          Senden Sie uns ein paar Angaben und Fotos zu Ihrem Fahrzeug – wir melden uns mit einem fairen Angebot.
         </p>
       </div>
       <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
-        {fields.map((f) => (
-          <input key={f} name={f} placeholder={f} required={["Marke", "Name"].includes(f)} className={input} />
+        {fields.slice(0, 4).map((f) => (
+          <input key={f} name={f} placeholder={f} required={f === "Marke"} className={input} />
         ))}
-        <select name="Getriebe" className={input} aria-label="Getriebe">
-          <option>Handschaltung</option>
-          <option>Automat</option>
-        </select>
+        {SELECTS.map((s) => (
+          <select key={s.name} name={s.name} defaultValue="" className={input} aria-label={s.name}>
+            <option value="" disabled>{s.name}</option>
+            {s.options.map((o) => (
+              <option key={o}>{o}</option>
+            ))}
+          </select>
+        ))}
+        {fields.slice(4).map((f) => (
+          <input key={f} name={f} placeholder={f} required={f === "Name"} type={f === "E-Mail" ? "email" : f === "Telefon" ? "tel" : "text"} className={input} />
+        ))}
         <textarea name="Bemerkungen" placeholder="Bemerkungen / Optionen" rows={3} className={`${input} sm:col-span-2`} />
+        <label className="flex cursor-pointer flex-col items-center justify-center gap-1 rounded-sm border-2 border-dashed border-input bg-background px-4 py-6 text-center hover:border-primary sm:col-span-2">
+          <span className="font-semibold">📷 Fotos hinzufügen</span>
+          <span className="text-sm text-muted-foreground">Mehrere Bilder möglich</span>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            className="sr-only"
+            onChange={(e) => setPhotos((p) => [...p, ...Array.from(e.target.files ?? [])].slice(0, 10))}
+          />
+        </label>
+        {photos.length > 0 && (
+          <div className="grid grid-cols-4 gap-2 sm:col-span-2">
+            {photos.map((f, i) => (
+              <div key={`${f.name}-${i}`} className="relative aspect-square overflow-hidden rounded-sm bg-muted">
+                <img src={URL.createObjectURL(f)} alt={f.name} className="h-full w-full object-cover" />
+                <button
+                  type="button"
+                  aria-label="Foto entfernen"
+                  onClick={() => setPhotos((p) => p.filter((_, j) => j !== i))}
+                  className="absolute right-1 top-1 rounded-full bg-card/90 px-2 text-sm font-bold"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
         <button className="rounded-sm bg-primary px-6 py-3 font-semibold text-primary-foreground sm:col-span-2">
-          {sent ? "E-Mail-Programm geöffnet" : "Anfrage senden"}
+          {sent === "shared" ? "Danke – Anfrage geteilt" : sent === "mail" ? "E-Mail-Programm geöffnet" : "Anfrage senden"}
         </button>
+        {sent === "mail" && photos.length > 0 && (
+          <p className="text-sm text-muted-foreground sm:col-span-2">Bitte hängen Sie die Fotos in Ihrem E-Mail-Programm noch an.</p>
+        )}
       </form>
     </section>
   );
