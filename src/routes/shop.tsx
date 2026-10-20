@@ -89,7 +89,7 @@ function Shop() {
       <section className="bg-ink text-ink-foreground">
         <div className="mx-auto max-w-7xl px-6 py-20">
           <p className="hero-in mb-4 kicker text-accent">Weber Beschriftungen</p>
-          <h1 className="hero-in font-display text-6xl leading-[0.9] md:text-8xl" style={{ animationDelay: "150ms" }}>Aufkleber-Shop<br />& Preise</h1>
+          <h1 className="hero-in font-display text-5xl min-[380px]:text-6xl leading-[0.9] md:text-8xl" style={{ animationDelay: "150ms" }}>Aufkleber-Shop<br />& Preise</h1>
           <p className="hero-in mt-6 max-w-2xl body-text text-ink-foreground/75" style={{ animationDelay: "300ms" }}>
             Über 220 Motive für Auto, Motorrad, Anhänger oder Wand – in vielen Folienfarben. Wählen Sie Ihr Motiv und senden Sie uns eine Anfrage, wir beraten Sie gerne.
           </p>
