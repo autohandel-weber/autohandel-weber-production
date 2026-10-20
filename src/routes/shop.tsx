@@ -168,7 +168,7 @@ function Shop() {
           </div>
           <div className="grid grid-cols-2 gap-4 self-center">
             {DIGITALDRUCK.map((im, i) => (
-              <div key={i} className="flex aspect-square items-center justify-center rounded-lg border border-border bg-card p-4">
+              <div key={i} className="flex aspect-square items-center justify-center rounded-lg border border-border bg-card p-4 shadow-sm">
                 <ReliableImage src={im.src} width={im.width} height={im.height} loading="lazy" alt={`Digitaldruck Beispiel ${i + 1}`} className="max-h-full max-w-full object-contain" />
               </div>
             ))}
