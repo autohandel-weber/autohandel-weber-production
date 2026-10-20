@@ -11,6 +11,7 @@ import { CHROME_SURCHARGE, DIGITALDRUCK, FOLIENFARBEN, SHIPPING, SHOP, priceRang
 
 const TEL = "079 422 55 41";
 const TEL_HREF = "tel:+41794225541";
+const EMAIL = "patrick.weber@intergga.ch";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
@@ -204,14 +205,30 @@ function Shop() {
         </div>
       </section>
 
-      <section className="bg-ink text-ink-foreground">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center">
-          <p className="mb-2 kicker text-accent">Bestellen</p>
-          <h2 className="heading-section">Motiv gefunden?</h2>
-          <p className="mx-auto mt-4 max-w-xl body-text text-ink-foreground/75">Schreiben Sie uns, welches Motiv, welche Farbe und welche Grösse Sie möchten – wir melden uns mit einer Offerte.</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button asChild className="h-12 rounded-sm px-6"><Link to="/" hash="kontakt">Anfrage senden</Link></Button>
-            <a href={TEL_HREF} className="inline-flex h-12 items-center gap-2 rounded-sm border border-accent bg-accent/15 px-6 font-semibold"><Phone className="h-5 w-5" /> {TEL}</a>
+      {/* Kontakt – gleich aufgebaut wie auf der Startseite */}
+      <section id="kontakt" className="scroll-mt-20 bg-ink text-ink-foreground">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-24 md:grid-cols-3">
+          <div>
+            <p className="mb-2 kicker text-accent">Kontakt</p>
+            <h2 className="heading-section">So erreichen Sie uns</h2>
+          </div>
+          <div>
+            <p className="font-semibold">Autohandel</p>
+            <p className="text-ink-foreground/70">Seewenstrasse 2<br />4418 Reigoldswil</p>
+            <p className="mt-6 font-semibold">Beschriftungen</p>
+            <p className="text-ink-foreground/70">Hohlegasse 37<br />4104 Oberwil</p>
+          </div>
+          <div className="space-y-3">
+            <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="flex items-center gap-3 rounded-sm bg-primary px-6 py-4 font-semibold text-primary-foreground">
+              <Phone className="h-6 w-6 shrink-0" /> Anrufen: <span className="font-display text-3xl">{TEL}</span>
+            </a>
+            <a href={`mailto:${EMAIL}`} className="block text-ink-foreground/70 hover:text-ink-foreground">{EMAIL}</a>
+          </div>
+        </div>
+        <div className="mx-auto max-w-7xl px-6 pb-24">
+          <div className="max-w-3xl">
+            <h3 className="mb-8 heading-sub">Schreiben Sie uns</h3>
+            <EnquiryForm kind="contact" />
           </div>
         </div>
         <p className="border-t border-ink-foreground/15 py-6 text-center text-sm text-ink-foreground/60">© {new Date().getFullYear()} Weber Autohandel & Beschriftungen</p>
