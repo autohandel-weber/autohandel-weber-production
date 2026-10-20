@@ -17,6 +17,7 @@ export type Database = {
       contact_submissions: {
         Row: {
           created_at: string
+          details: Json
           email: string
           email_status: string
           id: string
@@ -30,6 +31,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          details?: Json
           email: string
           email_status?: string
           id?: string
@@ -43,6 +45,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          details?: Json
           email?: string
           email_status?: string
           id?: string
