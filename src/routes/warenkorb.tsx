@@ -154,6 +154,7 @@ function Warenkorb() {
           )}
         </>}
       </main>
+      </div>
     </div>
   );
 }
