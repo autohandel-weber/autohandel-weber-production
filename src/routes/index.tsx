@@ -3,6 +3,27 @@ import { useState, type FormEvent } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import logo from "@/assets/logo-weber.png.asset.json";
 import { getCars } from "@/lib/cars.functions";
+import b1 from "@/assets/beschriftung-1.png.asset.json";
+import b2 from "@/assets/beschriftung-2.png.asset.json";
+import b3 from "@/assets/beschriftung-3.png.asset.json";
+import b4 from "@/assets/beschriftung-4.png.asset.json";
+import b5 from "@/assets/beschriftung-5.png.asset.json";
+import b6 from "@/assets/beschriftung-6.png.asset.json";
+import b7 from "@/assets/beschriftung-7.webp.asset.json";
+import b8 from "@/assets/beschriftung-8.webp.asset.json";
+import button59 from "@/assets/button-59mm.png.asset.json";
+import buttonsMotive from "@/assets/buttons-motive.png.asset.json";
+
+const gallery = [
+  { url: b1.url, alt: "Heckbeschriftung VW Caddy Bistro Kuhblick" },
+  { url: b2.url, alt: "Seitenbeschriftung Bistro Kuhblick" },
+  { url: b3.url, alt: "Ford S-Max mit Ultra Brag Beschriftung" },
+  { url: b4.url, alt: "Honda Rennmotorrad mit Dekor" },
+  { url: b5.url, alt: "Mercedes Sprinter REGO-FIX" },
+  { url: b8.url, alt: "Lieferwagen Seccosit" },
+  { url: b6.url, alt: "Flugzeug mit Breezer Beschriftung" },
+  { url: b7.url, alt: "Flugzeug Hawaiian Beschriftung" },
+];
 
 const carsQuery = queryOptions({ queryKey: ["cars"], queryFn: () => getCars(), staleTime: 5 * 60 * 1000 });
 
