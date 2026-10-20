@@ -5,12 +5,12 @@ const images = import.meta.glob<string>("/src/assets/images/shop/*.webp", { eage
 const img = (file: string): string => images[`/src/assets/images/shop/${file}`] ?? "";
 
 export type ShopImage = { src: string; width: number; height: number };
-export type Motif = ShopImage & { name: string; price: number };
+export type Motif = ShopImage & { id: string; name: string; price: number };
 type RawItem = { name: string; price: number; file: string; w: number; h: number };
 const raw = items as Record<string, RawItem[]>;
 
 const motifs = (key: string): Motif[] =>
-  (raw[key] ?? []).map((i) => ({ name: i.name, price: i.price, src: img(i.file), width: i.w, height: i.h }));
+  (raw[key] ?? []).map((i, index) => ({ id: `${key}:${index + 1}`, name: i.name, price: i.price, src: img(i.file), width: i.w, height: i.h }));
 
 /** "30.–" oder "30.– bis 40.–" aus allen Motiven einer Kategorie. */
 export function priceRange(list: Motif[]): string {
@@ -21,6 +21,15 @@ export function priceRange(list: Motif[]): string {
 }
 
 const cat = (name: string, key: string, note: string) => ({ name, note, motifs: motifs(key) });
+
+/** Looks up a motif by id ("kategorie:nummer") with its catalogue price – the only trusted price source. */
+export function findMotif(id: string): { id: string; name: string; price: number; category: string } | null {
+  const [key, n] = id.split(":");
+  const item = raw[key ?? ""]?.[Number(n) - 1];
+  if (!item || !/^\d+$/.test(n ?? "")) return null;
+  const category = SHOP.flatMap((g) => g.items).find((i) => i.motifs[0]?.id.startsWith(`${key}:`))?.name ?? key!;
+  return { id, name: item.name, price: item.price, category };
+}
 
 export const SHOP = [
   {
