@@ -1,7 +1,9 @@
 # Roadmap
 
 ## Offen
-- [ ] Kontaktformular-Versand über Resend einrichten — sendet die Anfrage (inkl. Fotos) direkt an die E-Mail des Kunden. Blocker: wartet auf Auftrag des Kunden («kommt aber erst später»).
+- [ ] Kontaktformular ergänzen und beide Formulare mit Fotos sicher speichern und prüfen.
+- [ ] «Buttons anfragen» und «Offerte verlangen» zum Kontaktbereich führen.
+- [ ] Resend-Versand an audeliab@proton.me einrichten. Blocker: Resend-Verbindung wurde abgelehnt.
 
 ## Erledigt
 - [x] Bilddateien optimiert, Einblendung abgesichert und alle 18 Bilder bei grossem/kleinem Bildschirm sowie vorübergehenden Ladefehlern geprüft.
