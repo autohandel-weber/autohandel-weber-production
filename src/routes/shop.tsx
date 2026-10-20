@@ -40,7 +40,7 @@ function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
       </DialogTrigger>
       <DialogContent className="max-h-[90dvh] max-w-5xl overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="heading-sub">{title}</DialogTitle>
+          <DialogTitle className="font-display text-4xl font-normal tracking-wide">{title}</DialogTitle>
           <DialogDescription>{motifs.length} Motive · Preise in CHF pro Stück · Chrom/Gold-Folie + CHF {CHROME_SURCHARGE}</DialogDescription>
         </DialogHeader>
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
