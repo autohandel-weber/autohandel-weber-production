@@ -184,6 +184,7 @@ function Index() {
       </section>
 
       {/* Fahrzeuge */}
+      <div className="bg-secondary">
       <section id="fahrzeuge" className="mx-auto max-w-7xl scroll-mt-20 px-6 py-24">
         <SectionHead kicker="Occasionen" title="Unsere Fahrzeuge" />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -214,6 +215,7 @@ function Index() {
           </a>
         </div>
       </section>
+      </div>
 
       <Ankauf />
 
