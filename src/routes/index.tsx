@@ -2,28 +2,29 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { Menu, Phone, X } from "lucide-react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import logo from "@/assets/logo-weber.png.asset.json";
+import { ReliableImage } from "@/components/reliable-image";
+import logo from "@/assets/logo-weber-optimized.webp.asset.json";
 import { getCars } from "@/lib/cars.functions";
-import b1 from "@/assets/beschriftung-1.png.asset.json";
-import b2 from "@/assets/beschriftung-2.png.asset.json";
-import b3 from "@/assets/beschriftung-3.png.asset.json";
-import b4 from "@/assets/beschriftung-4.png.asset.json";
-import b5 from "@/assets/beschriftung-5.png.asset.json";
-import b6 from "@/assets/beschriftung-6.png.asset.json";
-import b7 from "@/assets/beschriftung-7.webp.asset.json";
-import b8 from "@/assets/beschriftung-8.webp.asset.json";
-import button59 from "@/assets/button-59mm.png.asset.json";
-import buttonsMotive from "@/assets/buttons-motive.png.asset.json";
+import b1 from "@/assets/beschriftung-1-optimized.webp.asset.json";
+import b2 from "@/assets/beschriftung-2-optimized.webp.asset.json";
+import b3 from "@/assets/beschriftung-3-optimized.webp.asset.json";
+import b4 from "@/assets/beschriftung-4-optimized.webp.asset.json";
+import b5 from "@/assets/beschriftung-5-optimized.webp.asset.json";
+import b6 from "@/assets/beschriftung-6-optimized.webp.asset.json";
+import b7 from "@/assets/beschriftung-7-optimized.webp.asset.json";
+import b8 from "@/assets/beschriftung-8-optimized.webp.asset.json";
+import button59 from "@/assets/button-59mm-optimized.webp.asset.json";
+import buttonsMotive from "@/assets/buttons-motive-optimized.webp.asset.json";
 
 const gallery = [
-  { url: b1.url, alt: "Heckbeschriftung VW Caddy Bistro Kuhblick" },
-  { url: b2.url, alt: "Seitenbeschriftung Bistro Kuhblick" },
-  { url: b3.url, alt: "Ford S-Max mit Ultra Brag Beschriftung" },
-  { url: b4.url, alt: "Honda Rennmotorrad mit Dekor" },
-  { url: b5.url, alt: "Mercedes Sprinter REGO-FIX" },
-  { url: b8.url, alt: "Lieferwagen Seccosit" },
-  { url: b6.url, alt: "Flugzeug mit Breezer Beschriftung" },
-  { url: b7.url, alt: "Flugzeug Hawaiian Beschriftung" },
+  { url: b1.url, width: 1386, height: 1158, alt: "Heckbeschriftung VW Caddy Bistro Kuhblick" },
+  { url: b2.url, width: 1400, height: 722, alt: "Seitenbeschriftung Bistro Kuhblick" },
+  { url: b3.url, width: 1400, height: 686, alt: "Ford S-Max mit Ultra Brag Beschriftung" },
+  { url: b4.url, width: 1400, height: 990, alt: "Honda Rennmotorrad mit Dekor" },
+  { url: b5.url, width: 1305, height: 1400, alt: "Mercedes Sprinter REGO-FIX" },
+  { url: b8.url, width: 1400, height: 975, alt: "Lieferwagen Seccosit" },
+  { url: b6.url, width: 1400, height: 868, alt: "Flugzeug mit Breezer Beschriftung" },
+  { url: b7.url, width: 1400, height: 847, alt: "Flugzeug Hawaiian Beschriftung" },
 ];
 
 const carsQuery = queryOptions({ queryKey: ["cars"], queryFn: () => getCars(), staleTime: 5 * 60 * 1000 });
@@ -47,6 +48,8 @@ export const Route = createFileRoute("/")({
         content:
           "Geprüfte Occasionen mit 12 Monaten Garantie, Auto-Ankauf und Fahrzeugbeschriftungen von Patrick Weber in Reigoldswil BL.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:title", content: "Weber Autohandel & Beschriftungen" },
       {
         property: "og:description",
@@ -82,7 +85,7 @@ function Index() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <a href="#top" className="shrink-0">
-            <img src={logo.url} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />
+            <ReliableImage src={logo.url} width={944} height={488} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />
           </a>
           <nav className="hidden gap-8 text-sm font-medium uppercase tracking-wider md:flex">
             {nav.map(([id, l]) => (
@@ -148,7 +151,7 @@ function Index() {
           </div>
           </div>
           <div className="hero-in rounded-xl bg-card p-4 shadow-2xl" style={{ animationDelay: "500ms" }}>
-            <img src={logo.url} alt="Logo Weber AutoHandel & Beschriftungen" className="w-full" />
+            <ReliableImage src={logo.url} width={944} height={488} alt="Logo Weber AutoHandel & Beschriftungen" className="w-full" />
           </div>
         </div>
       </section>
@@ -160,7 +163,7 @@ function Index() {
           {cars.slice(0, 6).map((c) => (
             <a key={c.url} href={c.url} target="_blank" rel="noopener noreferrer" className="group overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-primary">
               <div className="aspect-[4/3] overflow-hidden bg-muted">
-                <img src={c.img} alt={c.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <ReliableImage src={c.img} width={800} height={600} referrerPolicy="no-referrer" alt={c.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               </div>
               <div className="p-5">
                 <h3 className="font-semibold leading-snug">{c.title}</h3>
@@ -223,15 +226,15 @@ function Index() {
           <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
             {gallery.map((g) => (
               <figure key={g.url} className="mb-4 break-inside-avoid overflow-hidden rounded-md bg-card shadow-sm">
-                <img src={g.url} alt={g.alt} loading="lazy" className="w-full transition-transform duration-500 hover:scale-105" />
+                <ReliableImage src={g.url} width={g.width} height={g.height} alt={g.alt} loading="lazy" className="w-full transition-transform duration-500 hover:scale-105" />
               </figure>
             ))}
           </div>
 
           <div id="buttons" className="mt-20 grid items-center gap-10 rounded-xl bg-card p-8 shadow-sm md:grid-cols-2 md:p-12">
             <div className="grid grid-cols-2 gap-4">
-              <img src={button59.url} alt="Button 59 mm mit Clip" loading="lazy" className="w-full rounded-md" />
-              <img src={buttonsMotive.url} alt="Bedruckte Buttons mit verschiedenen Motiven" loading="lazy" className="w-full rounded-md" />
+              <ReliableImage src={button59.url} width={446} height={452} alt="Button 59 mm mit Clip" loading="lazy" className="w-full rounded-md" />
+              <ReliableImage src={buttonsMotive.url} width={348} height={324} alt="Bedruckte Buttons mit verschiedenen Motiven" loading="lazy" className="w-full rounded-md" />
             </div>
             <div>
               <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-accent">Neu</p>
@@ -338,11 +341,13 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const REVEAL_SELECTOR = [
-  "#fahrzeuge > *",
+  "#fahrzeuge > :not(.grid)",
   "#fahrzeuge .grid > a",
-  "#ankauf > *",
+  "#ankauf > div",
   "#ankauf form > *",
-  "#beschriftungen > div > div",
+  "#beschriftungen > div:first-child > div",
+  "#beschriftungen > div:nth-child(2) > p",
+  "#buttons > div",
   "#beschriftungen li",
   "#beschriftungen figure",
   "#ueber-uns > *",
@@ -353,7 +358,7 @@ const REVEAL_SELECTOR = [
 // Blendet Elemente beim Scrollen weich ein (respektiert "reduzierte Bewegung").
 function useReveal() {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
     const els = Array.from(document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR));
     const io = new IntersectionObserver(
       (entries) => {
@@ -364,7 +369,7 @@ function useReveal() {
           }
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0, rootMargin: "0px 0px 80px 0px" },
     );
     for (const el of els) {
       const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
@@ -372,7 +377,16 @@ function useReveal() {
       el.classList.add("reveal");
       io.observe(el);
     }
-    return () => io.disconnect();
+    // Never leave content hidden if observation stalls or is interrupted.
+    const safetyTimer = window.setTimeout(() => {
+      els.forEach((el) => el.classList.add("is-visible"));
+      io.disconnect();
+    }, 12000);
+    return () => {
+      window.clearTimeout(safetyTimer);
+      io.disconnect();
+      els.forEach((el) => el.classList.remove("reveal", "is-visible"));
+    };
   }, []);
 }
 
@@ -458,7 +472,7 @@ function Ankauf() {
           <div className="grid grid-cols-4 gap-2 sm:col-span-2">
             {photos.map((f, i) => (
               <div key={`${f.name}-${i}`} className="relative aspect-square overflow-hidden rounded-sm bg-muted">
-                <img src={URL.createObjectURL(f)} alt={f.name} className="h-full w-full object-cover" />
+                <ReliableImage src={URL.createObjectURL(f)} alt={f.name} className="h-full w-full object-cover" />
                 <button
                   type="button"
                   aria-label="Foto entfernen"
