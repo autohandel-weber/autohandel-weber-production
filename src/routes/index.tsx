@@ -247,7 +247,7 @@ function Index() {
         </div>
 
         <div className="mx-auto max-w-7xl px-6 pb-24">
-          <p className="mb-6 kicker text-primary">Referenzen</p>
+          <p className="mb-2 kicker text-primary">Referenzen</p>
           <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
             {gallery.map((g) => (
               <figure key={g.url} className="mb-4 break-inside-avoid overflow-hidden rounded-md bg-card shadow-sm">
@@ -262,7 +262,7 @@ function Index() {
               <ReliableImage src={buttonsMotive.url} width={348} height={324} alt="Bedruckte Buttons mit verschiedenen Motiven" loading="lazy" className="w-full rounded-md" />
             </div>
             <div>
-              <p className="mb-2 kicker text-accent">Neu</p>
+              <p className="mb-2 kicker text-primary">Neu</p>
               <h3 className="heading-sub">Ihre eigenen Buttons</h3>
               <p className="mt-4 text-muted-foreground">
                 Bedruckt mit Ihrem Motiv, 59 mm mit Clip – für Vereine, Events, Werbung oder als Geschenk.
@@ -338,7 +338,7 @@ function Index() {
           </figure>
         </div>
         <div className="mt-16">
-          <p className="mb-4 kicker text-primary">Partner</p>
+          <p className="mb-2 kicker text-primary">Partner</p>
           <div className="grid gap-3 sm:grid-cols-2">
             {PARTNERS.map((p) => (
               <a
