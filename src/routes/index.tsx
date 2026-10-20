@@ -85,34 +85,36 @@ function Index() {
   return (
     <div className="min-h-screen bg-background pb-16 text-foreground md:pb-0">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-4 sm:px-6 lg:flex lg:justify-between lg:gap-6">
           <a href="#top" className="shrink-0">
             <ReliableImage src={logo.url} width={944} height={488} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />
           </a>
-          <nav className="hidden gap-8 text-sm font-medium uppercase tracking-wider md:flex">
+          <nav className="hidden min-w-0 items-center gap-6 whitespace-nowrap text-sm font-medium uppercase lg:flex xl:gap-8">
             {nav.map(([id, l]) => (
               <a key={id} href={`#${id}`} className="text-muted-foreground transition-colors hover:text-primary">
                 {l}
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
-            <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="hidden items-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground sm:inline-flex">
-              <Phone className="h-4 w-4" /> {TEL}
+          <div className="flex shrink-0 items-center gap-2">
+            <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground sm:inline-flex">
+              <Phone className="h-4 w-4 shrink-0" /> {TEL}
             </a>
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon"
               onClick={() => setMenuOpen((o) => !o)}
               aria-label={menuOpen ? "Menü schliessen" : "Menü öffnen"}
               aria-expanded={menuOpen}
-              className="rounded-sm p-2 text-foreground hover:bg-muted md:hidden"
+              className="shrink-0 rounded-sm text-foreground hover:bg-muted lg:hidden"
             >
               {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+            </Button>
           </div>
         </div>
-        <div className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-out md:hidden ${menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-          <nav className="min-h-0">
+        <div inert={!menuOpen} className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-out lg:hidden ${menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+          <nav className="max-h-[calc(100dvh-6rem)] min-h-0 overflow-y-auto">
             <div className="flex flex-col gap-1 border-t border-border px-6 py-4">
               {nav.map(([id, l]) => (
                 <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)} className="rounded-sm px-2 py-3 text-lg font-medium hover:bg-muted hover:text-primary">
