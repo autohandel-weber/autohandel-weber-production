@@ -15,6 +15,13 @@
       "when": 1792522569879,
       "tag": "0001_create_shop_orders",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792522760999,
+      "tag": "0002_remove_test_orders",
+      "breakpoints": true
     }
   ]
 }
