@@ -17,6 +17,7 @@ import b7Src from "@/assets/images/beschriftung-7.webp";
 import b8Src from "@/assets/images/beschriftung-8.webp";
 import button59Src from "@/assets/images/button-59mm.webp";
 import buttonsMotiveSrc from "@/assets/images/buttons-motive.webp";
+import patrickSrc from "@/assets/images/patrick-weber.webp";
 
 const logo = { url: logoSrc };
 const b1 = { url: b1Src };
@@ -29,6 +30,7 @@ const b7 = { url: b7Src };
 const b8 = { url: b8Src };
 const button59 = { url: button59Src };
 const buttonsMotive = { url: buttonsMotiveSrc };
+const patrick = { url: patrickSrc };
 
 const gallery = [
   { url: b1.url, width: 1386, height: 1158, alt: "Heckbeschriftung VW Caddy Bistro Kuhblick" },
@@ -89,6 +91,13 @@ const PARTNERS = [
   { name: "Audelia", url: "https://www.bewerbungswerkstatt.ch/", note: "Ihre Bewerbungsspezialistin" },
   { name: "StartSaldo", url: "https://www.startsaldo.ch/", note: "Ihre Buchhaltung" },
 ];
+
+// Meilensteine der Firmengeschichte – Jahr und Text erscheinen nebeneinander.
+const HISTORY = [
+  ["2004", "Im Jahre 2004 wurde dann die Firma Weber Autohandel & Beschriftungen gegründet."],
+  ["August 2023", "Ab August 2023 durften wir unsere neue Garage beziehen an der Seewenstrasse 2 auch in 4418 Reigoldswil."],
+  ["Herbst 2026", "Im Herbst 2026 haben wir unsere Firma stolz in eine GmbH gewandelt."],
+] as const;
 
 function Index() {
   const { data: { cars } } = useSuspenseQuery(carsQuery);
@@ -372,7 +381,9 @@ const REVEAL_SELECTOR = [
   "#buttons > div",
   "#beschriftungen li",
   "#beschriftungen figure",
-  "#ueber-uns > *",
+  "#ueber-uns .about-copy > *",
+  "#ueber-uns figure",
+  "#ueber-uns li",
   "#ueber-uns a",
   "#kontakt > div > div",
 ].join(",");
