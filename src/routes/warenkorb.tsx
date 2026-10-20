@@ -76,7 +76,7 @@ function Warenkorb() {
       <section className="bg-ink text-ink-foreground">
         <div className="mx-auto max-w-7xl px-6 py-14">
           <p className="hero-in mb-2 kicker text-accent">Aufkleber-Shop</p>
-          <h1 className="hero-in heading-section" style={{ animationDelay: "150ms" }}>{done ? "Vielen Dank" : "Warenkorb"}</h1>
+          <h1 className="hero-in heading-section" style={{ animationDelay: "150ms" }}>Warenkorb</h1>
         </div>
       </section>
       <div className="bg-secondary">
@@ -154,6 +154,7 @@ function Warenkorb() {
           )}
         </>}
       </main>
+      </div>
     </div>
   );
 }
@@ -163,7 +164,7 @@ function Confirmation({ done }: { done: Done }) {
     <div className="mx-auto max-w-2xl text-center">
       <CheckCircle2 className="mx-auto h-14 w-14 text-primary" />
       <p className="mt-6 mb-2 kicker text-primary">Vielen Dank</p>
-      <h1 className="heading-section">Bestellung erhalten</h1>
+      <h2 className="heading-section">Bestellung erhalten</h2>
       <p className="mt-4 body-text text-muted-foreground">Ihre Bestellnummer: <strong className="text-foreground">{done.orderNumber}</strong> · Total CHF {done.total}.–</p>
       <div className="mt-8 rounded-lg border border-border bg-card p-6 text-left">
         {done.payment === "twint" ? <>
