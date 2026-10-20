@@ -156,7 +156,7 @@ function Index() {
         <div className="absolute -bottom-40 left-1/3 h-[24rem] w-[24rem] rounded-full bg-primary/25 blur-3xl" />
         <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-[1.2fr_1fr] md:py-28">
           <div>
-          <p className="hero-in mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-accent" style={{ animationDelay: "100ms" }}>Seit 2004 · Reigoldswil BL</p>
+          <p className="hero-in mb-4 kicker text-accent" style={{ animationDelay: "100ms" }}>Seit 2004 · Reigoldswil BL</p>
           <h1 style={{ animationDelay: "250ms" }} className="hero-in font-display text-6xl leading-[0.9] md:text-8xl lg:text-9xl">
             Autohandel &<br />Beschriftungen
           </h1>
@@ -247,7 +247,7 @@ function Index() {
         </div>
 
         <div className="mx-auto max-w-7xl px-6 pb-24">
-          <p className="mb-6 text-sm font-semibold uppercase tracking-[0.3em] text-primary">Referenzen</p>
+          <p className="mb-6 kicker text-primary">Referenzen</p>
           <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
             {gallery.map((g) => (
               <figure key={g.url} className="mb-4 break-inside-avoid overflow-hidden rounded-md bg-card shadow-sm">
@@ -262,8 +262,8 @@ function Index() {
               <ReliableImage src={buttonsMotive.url} width={348} height={324} alt="Bedruckte Buttons mit verschiedenen Motiven" loading="lazy" className="w-full rounded-md" />
             </div>
             <div>
-              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-accent">Neu</p>
-              <h3 className="font-display text-4xl md:text-5xl">Ihre eigenen Buttons</h3>
+              <p className="mb-2 kicker text-accent">Neu</p>
+              <h3 className="heading-sub">Ihre eigenen Buttons</h3>
               <p className="mt-4 text-muted-foreground">
                 Bedruckt mit Ihrem Motiv, 59 mm mit Clip – für Vereine, Events, Werbung oder als Geschenk.
               </p>
@@ -282,27 +282,27 @@ function Index() {
         <div className="grid items-start gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,17rem)] md:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] lg:gap-16">
           <div className="about-copy min-w-0">
             <SectionHead kicker="Über uns" title="Patrick Weber" />
-            <h3 className="font-display text-3xl md:text-4xl">Meine beruflichen Erfahrungen</h3>
+            <h3 className="heading-sub">Meine beruflichen Erfahrungen</h3>
             <p className="mt-1 text-muted-foreground">
               Mechaniker · Instandhaltungsfachmann · Ausbildung Beschriften · Digital Druck
             </p>
-            <p className="mt-8 text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-8 body-text text-muted-foreground">
               Schon als junger Knabe begeisterten mich Motoren und Autos. Da mein Vater auch ein
               autobegeisterter Mann war, wuchs ich automatisch in die Szene.
             </p>
-            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 body-text text-muted-foreground">
               So begann es zuerst mit den Velos und dann Mofas – die wir auch heute noch
               restaurieren (vor allem Puch).
             </p>
-            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 body-text text-muted-foreground">
               Stets bemühen wir uns, unsere Kunden zufrieden zu stellen und Fahrzeuge termingerecht
               abzuliefern, selbstverständlich mit 12 Monaten Garantie. Auch bei den Beschriftungen
               streben wir stets nach Perfektionismus und voller Kundenzufriedenheit.
             </p>
-            <p className="mt-6 text-lg text-foreground">
+            <p className="mt-6 body-text text-foreground">
               Wir freuen uns, auch Sie zu unseren Kunden zählen zu dürfen!
             </p>
-            <h3 className="mt-14 font-display text-3xl md:text-4xl">Geschichte</h3>
+            <h3 className="mt-14 heading-sub">Geschichte</h3>
             <ol className="mt-6 space-y-5">
               {HISTORY.map(([year, text]) => (
                 <li
@@ -312,18 +312,18 @@ function Index() {
                   <span className="shrink-0 font-display text-2xl whitespace-nowrap text-accent sm:w-40">
                     {year}
                   </span>
-                  <span className="text-lg leading-relaxed text-muted-foreground">{text}</span>
+                  <span className="body-text text-muted-foreground">{text}</span>
                 </li>
               ))}
             </ol>
             <div className="mt-10">
-              <p className="text-lg leading-relaxed text-muted-foreground">
+              <p className="body-text text-muted-foreground">
                 Mit bestem Dank für Ihr Vertrauen in unsere Firma
               </p>
               <p className="mt-3 font-display text-2xl text-primary">
                 Weber Autohandel & Beschriftungen
               </p>
-              <p className="mt-1 text-lg text-foreground">Patrick Weber</p>
+              <p className="mt-1 body-text text-foreground">Patrick Weber</p>
             </div>
           </div>
           <figure className="mx-auto w-full max-w-sm md:max-w-none">
@@ -338,7 +338,7 @@ function Index() {
           </figure>
         </div>
         <div className="mt-16">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">Partner</p>
+          <p className="mb-4 kicker text-primary">Partner</p>
           <div className="grid gap-3 sm:grid-cols-2">
             {PARTNERS.map((p) => (
               <a
@@ -360,8 +360,8 @@ function Index() {
       <section id="kontakt" className="scroll-mt-20 bg-ink text-ink-foreground">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-24 md:grid-cols-3">
           <div>
-            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-accent">Kontakt</p>
-            <h2 className="font-display text-5xl md:text-6xl">So erreichen Sie uns</h2>
+            <p className="mb-2 kicker text-accent">Kontakt</p>
+            <h2 className="heading-section">So erreichen Sie uns</h2>
           </div>
           <div>
             <p className="font-semibold">Autohandel</p>
@@ -378,7 +378,7 @@ function Index() {
         </div>
         <div className="mx-auto max-w-7xl px-6 pb-24">
           <div className="max-w-3xl">
-            <h3 className="mb-8 font-display text-4xl">Schreiben Sie uns</h3>
+            <h3 className="mb-8 heading-sub">Schreiben Sie uns</h3>
             <EnquiryForm kind="contact" />
           </div>
         </div>
@@ -475,8 +475,8 @@ function useReveal() {
 function SectionHead({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div className="mb-10">
-      <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-primary">{kicker}</p>
-      <h2 className="font-display text-5xl md:text-6xl">{title}</h2>
+      <p className="mb-2 kicker text-primary">{kicker}</p>
+      <h2 className="heading-section">{title}</h2>
     </div>
   );
 }
@@ -486,7 +486,7 @@ function Ankauf() {
     <section id="ankauf" className="mx-auto grid max-w-7xl scroll-mt-20 gap-12 px-6 py-24 md:grid-cols-2">
       <div>
         <SectionHead kicker="Ankauf" title="Sie möchten Ihr Auto verkaufen?" />
-        <p className="text-lg text-muted-foreground">
+        <p className="body-text text-muted-foreground">
           Senden Sie uns ein paar Angaben und Fotos zu Ihrem Fahrzeug – wir melden uns mit einem fairen Angebot.
         </p>
         <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="mt-6 inline-flex items-center gap-2 font-semibold text-primary">
