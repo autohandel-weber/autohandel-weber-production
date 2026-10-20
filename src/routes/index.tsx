@@ -17,6 +17,7 @@ import b7Src from "@/assets/images/beschriftung-7.webp";
 import b8Src from "@/assets/images/beschriftung-8.webp";
 import button59Src from "@/assets/images/button-59mm.webp";
 import buttonsMotiveSrc from "@/assets/images/buttons-motive.webp";
+import patrickSrc from "@/assets/images/patrick-weber.webp";
 
 const logo = { url: logoSrc };
 const b1 = { url: b1Src };
@@ -29,6 +30,7 @@ const b7 = { url: b7Src };
 const b8 = { url: b8Src };
 const button59 = { url: button59Src };
 const buttonsMotive = { url: buttonsMotiveSrc };
+const patrick = { url: patrickSrc };
 
 const gallery = [
   { url: b1.url, width: 1386, height: 1158, alt: "Heckbeschriftung VW Caddy Bistro Kuhblick" },
@@ -89,6 +91,13 @@ const PARTNERS = [
   { name: "Audelia", url: "https://www.bewerbungswerkstatt.ch/", note: "Ihre Bewerbungsspezialistin" },
   { name: "StartSaldo", url: "https://www.startsaldo.ch/", note: "Ihre Buchhaltung" },
 ];
+
+// Meilensteine der Firmengeschichte – Jahr und Text erscheinen nebeneinander.
+const HISTORY = [
+  ["2004", "Im Jahre 2004 wurde dann die Firma Weber Autohandel & Beschriftungen gegründet."],
+  ["August 2023", "Ab August 2023 durften wir unsere neue Garage beziehen an der Seewenstrasse 2 auch in 4418 Reigoldswil."],
+  ["Herbst 2026", "Im Herbst 2026 haben wir unsere Firma stolz in eine GmbH gewandelt."],
+] as const;
 
 function Index() {
   const { data: { cars } } = useSuspenseQuery(carsQuery);
@@ -269,17 +278,66 @@ function Index() {
       </section>
 
       {/* Über uns */}
-      <section id="ueber-uns" className="mx-auto max-w-4xl scroll-mt-20 px-6 py-24">
-        <SectionHead kicker="Über uns" title="Patrick Weber" />
-        <div className="space-y-5 text-lg text-muted-foreground">
-          <p>
-            Gelernter Mechaniker und Instandhaltungsfachmann mit Ausbildung in Beschriftung und Digitaldruck. Motoren und Autos begeistern mich, seit ich ein Knabe war – mit 14 kam das erste Mofa, und das Restaurieren von Puch-Mofas pflegen wir bis heute.
-          </p>
-          <p>
-            2004 gründete ich Weber Autohandel & Beschriftungen. Seit August 2023 sind wir in der neuen Garage an der Seewenstrasse 2 in Reigoldswil. Unsere Fahrzeuge liefern wir termingerecht und mit 12 Monaten Garantie ab.
-          </p>
+      <section id="ueber-uns" className="mx-auto max-w-6xl scroll-mt-20 px-6 py-24">
+        <div className="grid items-start gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,17rem)] md:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] lg:gap-16">
+          <div className="about-copy min-w-0">
+            <SectionHead kicker="Über uns" title="Patrick Weber" />
+            <p className="text-lg font-semibold text-foreground">Meine beruflichen Erfahrungen</p>
+            <p className="mt-1 text-muted-foreground">
+              Mechaniker · Instandhaltungsfachmann · Ausbildung Beschriften · Digital Druck
+            </p>
+            <p className="mt-8 text-lg leading-relaxed text-muted-foreground">
+              Schon als junger Knabe begeisterten mich Motoren und Autos. Da mein Vater auch ein
+              autobegeisterter Mann war, wuchs ich automatisch in die Szene.
+            </p>
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              So begann es zuerst mit den Velos und dann Mofas – die wir auch heute noch
+              restaurieren (vor allem Puch).
+            </p>
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              Stets bemühen wir uns, unsere Kunden zufrieden zu stellen und Fahrzeuge termingerecht
+              abzuliefern, selbstverständlich mit 12 Monaten Garantie. Auch bei den Beschriftungen
+              streben wir stets nach Perfektionismus und voller Kundenzufriedenheit.
+            </p>
+            <p className="mt-6 text-lg font-semibold text-foreground">
+              Wir freuen uns, auch Sie zu unseren Kunden zählen zu dürfen!
+            </p>
+            <h3 className="mt-14 font-display text-3xl md:text-4xl">Geschichte</h3>
+            <ol className="mt-6 space-y-5">
+              {HISTORY.map(([year, text]) => (
+                <li
+                  key={year}
+                  className="flex flex-col gap-1 border-b border-border pb-5 sm:flex-row sm:gap-6"
+                >
+                  <span className="shrink-0 font-display text-2xl whitespace-nowrap text-accent sm:w-40">
+                    {year}
+                  </span>
+                  <span className="text-lg leading-relaxed text-muted-foreground">{text}</span>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-8 rounded-md border border-border bg-card p-6">
+              <p className="text-muted-foreground">
+                Mit bestem Dank für Ihr Vertrauen in unsere Firma
+              </p>
+              <p className="mt-3 font-display text-2xl text-primary">
+                Weber Autohandel & Beschriftungen
+              </p>
+              <p className="mt-1 font-semibold">Patrick Weber</p>
+            </div>
+          </div>
+          <figure className="mx-auto w-full max-w-sm md:max-w-none">
+            <ReliableImage
+              src={patrick.url}
+              width={768}
+              height={1024}
+              alt="Patrick Weber, Inhaber von Weber Autohandel & Beschriftungen"
+              loading="lazy"
+              className="w-full rounded-md border border-border bg-card shadow-sm"
+            />
+          </figure>
         </div>
-        <div className="mt-12">
+        <div className="mt-16">
           <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">Partner</p>
           <div className="grid gap-3 sm:grid-cols-2">
             {PARTNERS.map((p) => (
@@ -372,7 +430,9 @@ const REVEAL_SELECTOR = [
   "#buttons > div",
   "#beschriftungen li",
   "#beschriftungen figure",
-  "#ueber-uns > *",
+  "#ueber-uns .about-copy > *",
+  "#ueber-uns figure",
+  "#ueber-uns li",
   "#ueber-uns a",
   "#kontakt > div > div",
 ].join(",");
