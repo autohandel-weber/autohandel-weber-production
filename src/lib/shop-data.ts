@@ -1,6 +1,6 @@
 // Aufkleber-Katalog vom bisherigen Online-Shop (Preise in CHF pro Stück).
 const images = import.meta.glob<string>("/src/assets/images/shop/*.webp", { eager: true, import: "default" });
-const img = (file: string) => images[`/src/assets/images/shop/${file}`];
+const img = (file: string): string => images[`/src/assets/images/shop/${file}`] ?? "";
 export type ShopImage = { src: string; width: number; height: number };
 const map = (list: { file: string; w: number; h: number }[]): ShopImage[] => list.map((i) => ({ src: img(i.file), width: i.w, height: i.h }));
 const RAW = [
