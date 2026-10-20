@@ -282,7 +282,7 @@ function Index() {
         <div className="grid items-start gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,17rem)] md:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] lg:gap-16">
           <div className="about-copy min-w-0">
             <SectionHead kicker="Über uns" title="Patrick Weber" />
-            <p className="text-lg font-semibold text-foreground">Meine beruflichen Erfahrungen</p>
+            <h3 className="font-display text-3xl md:text-4xl">Meine beruflichen Erfahrungen</h3>
             <p className="mt-1 text-muted-foreground">
               Mechaniker · Instandhaltungsfachmann · Ausbildung Beschriften · Digital Druck
             </p>
@@ -299,7 +299,7 @@ function Index() {
               abzuliefern, selbstverständlich mit 12 Monaten Garantie. Auch bei den Beschriftungen
               streben wir stets nach Perfektionismus und voller Kundenzufriedenheit.
             </p>
-            <p className="mt-6 text-lg font-semibold text-foreground">
+            <p className="mt-6 text-lg text-foreground">
               Wir freuen uns, auch Sie zu unseren Kunden zählen zu dürfen!
             </p>
             <h3 className="mt-14 font-display text-3xl md:text-4xl">Geschichte</h3>
@@ -316,14 +316,14 @@ function Index() {
                 </li>
               ))}
             </ol>
-            <div className="mt-8 rounded-md border border-border bg-card p-6">
-              <p className="text-muted-foreground">
+            <div className="mt-10">
+              <p className="text-lg leading-relaxed text-muted-foreground">
                 Mit bestem Dank für Ihr Vertrauen in unsere Firma
               </p>
               <p className="mt-3 font-display text-2xl text-primary">
                 Weber Autohandel & Beschriftungen
               </p>
-              <p className="mt-1 font-semibold">Patrick Weber</p>
+              <p className="mt-1 text-lg text-foreground">Patrick Weber</p>
             </div>
           </div>
           <figure className="mx-auto w-full max-w-sm md:max-w-none">
