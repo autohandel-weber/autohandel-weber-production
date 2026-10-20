@@ -8,6 +8,27 @@
       "when": 1792501750393,
       "tag": "0000_create_enquiry_submissions",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792522569879,
+      "tag": "0001_create_shop_orders",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792522760999,
+      "tag": "0002_remove_test_orders",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792522803298,
+      "tag": "0003_remove_test_orders_2",
+      "breakpoints": true
     }
   ]
 }

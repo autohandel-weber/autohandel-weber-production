@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Grid3x3, Info, Palette, Phone, Printer, Truck } from "lucide-react";
+import { toast } from "sonner";
+import { useCart } from "@/lib/cart";
+import { ArrowLeft, Grid3x3, ShoppingCart, Info, Palette, Phone, Printer, Truck } from "lucide-react";
 import { ReliableImage } from "@/components/reliable-image";
 import { Button } from "@/components/ui/button";
 import logoSrc from "@/assets/images/logo-weber.webp";
@@ -32,7 +34,18 @@ const MONTAGE = [
   "Fertig!",
 ];
 
+function CartButton() {
+  const { count } = useCart();
+  return (
+    <Button asChild variant="outline" className="relative rounded-sm"><Link to="/warenkorb" aria-label={`Warenkorb (${count} Artikel)`}>
+      <ShoppingCart /> <span className="hidden sm:inline">Warenkorb</span>
+      {count > 0 && <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-xs font-semibold text-primary-foreground">{count}</span>}
+    </Link></Button>
+  );
+}
+
 function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
+  const { add } = useCart();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -51,10 +64,13 @@ function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
               </div>
               <p className="mt-3 font-semibold">{m.name} <span className="text-muted-foreground">#{i + 1}</span></p>
               <p className="font-display text-2xl text-primary">CHF {m.price}.–</p>
+              <Button type="button" size="sm" className="mt-auto rounded-sm" onClick={() => { add(m.id); toast.success(`${m.name} #${i + 1} im Warenkorb`, { action: { label: "Zum Warenkorb", onClick: () => { window.location.href = "/warenkorb"; } } }); }}>
+                <ShoppingCart /> In den Warenkorb
+              </Button>
             </li>
           ))}
         </ul>
-        <Button asChild className="h-12 rounded-sm"><Link to="/" hash="kontakt">Motiv anfragen</Link></Button>
+        <Button asChild variant="outline" className="h-12 rounded-sm"><Link to="/warenkorb"><ShoppingCart /> Zum Warenkorb</Link></Button>
       </DialogContent>
     </Dialog>
   );
@@ -79,6 +95,7 @@ function Shop() {
           </Link>
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" className="rounded-sm"><Link to="/" hash="beschriftungen"><ArrowLeft /> <span className="hidden sm:inline">Zur Startseite</span></Link></Button>
+            <CartButton />
             <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="inline-flex items-center gap-2 whitespace-nowrap rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
               <Phone className="h-4 w-4" /> <span className="hidden sm:inline">{TEL}</span>
             </a>

@@ -56,6 +56,60 @@ export type Database = {
         }
         Relationships: []
       }
+      shop_orders: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          items: Json
+          name: string
+          note: string
+          order_number: string
+          payment_method: string
+          phone: string
+          shipping: number
+          status: string
+          street: string
+          subtotal: number
+          total: number
+          zip_city: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          items: Json
+          name: string
+          note?: string
+          order_number: string
+          payment_method: string
+          phone?: string
+          shipping: number
+          status?: string
+          street: string
+          subtotal: number
+          total: number
+          zip_city: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          items?: Json
+          name?: string
+          note?: string
+          order_number?: string
+          payment_method?: string
+          phone?: string
+          shipping?: number
+          status?: string
+          street?: string
+          subtotal?: number
+          total?: number
+          zip_city?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
