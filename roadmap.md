@@ -10,3 +10,4 @@
 - [x] One-Page-Redesign mit Scroll-Sektionen, Logo-Integration, AutoScout24-Fahrzeugliste, Beschriftungs-Galerie, Animationen, Hamburger-Menü, Verkaufformular mit Fotos/Getriebe/Treibstoff/Fahrzeugart
 - [x] Favicon (rotes Auto, transparent) für Browser-Tabs/Chrome und Google, apple-touch-icon
 - [x] Aufkleber-Shop mit Preisen als eigene Seite, verlinkt aus Beschriftungen und Menü
+- [x] Alle 227 Motive, Versand und Folienfarben im Shop; «Zur Startseite» springt zu Beschriftungen

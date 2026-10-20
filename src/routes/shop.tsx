@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Info, Palette, Phone, Printer } from "lucide-react";
+import { ArrowLeft, Grid3x3, Info, Palette, Phone, Printer, Truck } from "lucide-react";
 import { ReliableImage } from "@/components/reliable-image";
 import { Button } from "@/components/ui/button";
 import logoSrc from "@/assets/images/logo-weber.webp";
-import { CHROME_SURCHARGE, DIGITALDRUCK, SHOP } from "@/lib/shop-data";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { CHROME_SURCHARGE, DIGITALDRUCK, FOLIENFARBEN, SHIPPING, SHOP, priceRange, type Motif } from "@/lib/shop-data";
 
 const TEL = "079 422 55 41";
 const TEL_HREF = "tel:+41794225541";
@@ -31,6 +32,34 @@ const MONTAGE = [
   "Fertig!",
 ];
 
+function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="mt-4 h-11 w-full rounded-sm"><Grid3x3 /> Alle {motifs.length} Motive ansehen</Button>
+      </DialogTrigger>
+      <DialogContent className="max-h-[90dvh] max-w-5xl overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="font-display text-4xl font-normal tracking-wide">{title}</DialogTitle>
+          <DialogDescription>{motifs.length} Motive · Preise in CHF pro Stück · Chrom/Gold-Folie + CHF {CHROME_SURCHARGE}</DialogDescription>
+        </DialogHeader>
+        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {motifs.map((m, i) => (
+            <li key={i} className="flex flex-col rounded-sm border border-border p-3">
+              <div className="flex aspect-[4/3] items-center justify-center">
+                <ReliableImage src={m.src} width={m.width} height={m.height} loading="lazy" alt={`${m.name} Aufkleber`} className="max-h-full max-w-full object-contain" />
+              </div>
+              <p className="mt-3 font-semibold">{m.name} <span className="text-muted-foreground">#{i + 1}</span></p>
+              <p className="font-display text-2xl text-primary">CHF {m.price}.–</p>
+            </li>
+          ))}
+        </ul>
+        <Button asChild className="h-12 rounded-sm"><Link to="/" hash="kontakt">Motiv anfragen</Link></Button>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function SectionHead({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div className="mb-10">
@@ -49,7 +78,7 @@ function Shop() {
             <ReliableImage src={logoSrc} width={1200} height={640} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />
           </Link>
           <div className="flex items-center gap-2">
-            <Button asChild variant="ghost" className="rounded-sm"><Link to="/"><ArrowLeft /> <span className="hidden sm:inline">Zur Startseite</span></Link></Button>
+            <Button asChild variant="ghost" className="rounded-sm"><Link to="/" hash="beschriftungen"><ArrowLeft /> <span className="hidden sm:inline">Zur Startseite</span></Link></Button>
             <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="inline-flex items-center gap-2 whitespace-nowrap rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
               <Phone className="h-4 w-4" /> <span className="hidden sm:inline">{TEL}</span>
             </a>
@@ -62,7 +91,7 @@ function Shop() {
           <p className="hero-in mb-4 kicker text-accent">Weber Beschriftungen</p>
           <h1 className="hero-in font-display text-6xl leading-[0.9] md:text-8xl" style={{ animationDelay: "150ms" }}>Aufkleber-Shop<br />& Preise</h1>
           <p className="hero-in mt-6 max-w-2xl body-text text-ink-foreground/75" style={{ animationDelay: "300ms" }}>
-            Über 100 Motive für Auto, Motorrad, Anhänger oder Wand – in vielen Folienfarben. Wählen Sie Ihr Motiv und senden Sie uns eine Anfrage, wir beraten Sie gerne.
+            Über 220 Motive für Auto, Motorrad, Anhänger oder Wand – in vielen Folienfarben. Wählen Sie Ihr Motiv und senden Sie uns eine Anfrage, wir beraten Sie gerne.
           </p>
           <div className="hero-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: "450ms" }}>
             {SHOP.map((g) => <a key={g.group} href={`#${g.group.toLowerCase()}`} className="rounded-sm border border-ink-foreground/30 px-4 py-2 font-semibold hover:border-accent">{g.group}</a>)}
@@ -79,15 +108,16 @@ function Shop() {
               {g.items.map((item) => (
                 <article key={item.name} className="flex flex-col rounded-lg border border-border bg-card p-6">
                   <div className="grid grid-cols-2 gap-3">
-                    {item.images.map((im, i) => (
+                    {item.motifs.slice(0, 4).map((im, i) => (
                       <div key={i} className="flex aspect-[4/3] items-center justify-center rounded-sm bg-card p-2">
-                        <ReliableImage src={im.src} width={im.width} height={im.height} loading="lazy" alt={`${item.name} Motiv ${i + 1}`} className="max-h-full max-w-full object-contain" />
+                        <ReliableImage src={im.src} width={im.width} height={im.height} loading="lazy" alt={`${im.name} Aufkleber`} className="max-h-full max-w-full object-contain" />
                       </div>
                     ))}
                   </div>
                   <h3 className="mt-5 heading-sub">{item.name}</h3>
                   <p className="mt-1 body-text text-muted-foreground">{item.note}</p>
-                  <p className="mt-auto pt-4 font-display text-3xl text-primary">CHF {item.price} <span className="font-sans text-sm text-muted-foreground">/ Stk.</span></p>
+                  <p className="mt-auto pt-4 font-display text-3xl text-primary">CHF {priceRange(item.motifs)} <span className="font-sans text-sm text-muted-foreground">/ Stk.</span></p>
+                  <MotifDialog title={item.name} motifs={item.motifs} />
                 </article>
               ))}
             </div>
@@ -119,7 +149,12 @@ function Shop() {
             <SectionHead kicker="Gut zu wissen" title="Folien & Montage" />
             <p className="flex gap-3 body-text text-muted-foreground"><Palette className="mt-1 h-5 w-5 shrink-0 text-primary" />Viele Folienfarben verfügbar – für spezielle Farbwünsche schreiben oder rufen Sie uns einfach an.</p>
             <p className="mt-4 flex gap-3 body-text text-muted-foreground"><Printer className="mt-1 h-5 w-5 shrink-0 text-primary" />Zuschlag für Aufkleber mit Chrom- oder Goldfolie: CHF {CHROME_SURCHARGE}</p>
+            <p className="mt-4 flex gap-3 body-text text-muted-foreground"><Truck className="mt-1 h-5 w-5 shrink-0 text-primary" />Versand ausschliesslich per Post: CHF {SHIPPING.post}, per Nachnahme CHF {SHIPPING.cod}. Die Ware wird nach Zahlungseingang verschickt.</p>
             <p className="mt-4 flex gap-3 body-text text-muted-foreground"><Info className="mt-1 h-5 w-5 shrink-0 text-primary" />Aus eigener Erfahrung ist Chrom- oder Goldfolie auf Scheiben weniger geeignet.</p>
+            <figure className="mt-8 rounded-lg border border-border bg-card p-4">
+              <ReliableImage src={FOLIENFARBEN.src} width={FOLIENFARBEN.width} height={FOLIENFARBEN.height} loading="lazy" alt="Übersicht der Folienfarben" className="h-auto w-full" />
+              <figcaption className="mt-2 text-sm text-muted-foreground">Verfügbare Folienfarben</figcaption>
+            </figure>
           </div>
           <ol className="grid gap-4 self-center">
             {MONTAGE.map((s, i) => (
