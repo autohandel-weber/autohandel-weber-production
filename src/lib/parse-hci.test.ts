@@ -5,7 +5,7 @@ const html = `<ul><li><article><a href="/de/hci/v2/4250/detail/20887185"><img sr
 
 describe("parseHciHtml", () => {
   it("liest ein AutoScout24-Inserat mit Link, Preis und Daten", () => {
-    const [car] = parseHciHtml(html);
+    const car = parseHciHtml(html)[0]!;
     expect(car.url).toBe("https://www.autoscout24.ch/de/hci/v2/4250/detail/20887185");
     expect(car.price).toBe("CHF 12'900.-");
     expect(car.km).toBe("122'299 km");

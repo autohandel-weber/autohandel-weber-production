@@ -27,7 +27,7 @@ export function parseHciHtml(html: string): Car[] {
       const a = raw.replace(/<style[\s\S]*?<\/style>/g, "");
       const href = a.match(/href="([^"]*\/detail\/\d+)"/)?.[1];
       const img = a.match(/src="(https:\/\/images\.autoscout24\.ch[^"]+)"/)?.[1] ?? "";
-      const texts = [...a.matchAll(/>([^<>]+)</g)].map((m) => unescape(m[1])).filter(Boolean);
+      const texts = [...a.matchAll(/>([^<>]+)</g)].map((m) => unescape(m[1] ?? "")).filter(Boolean);
       const after = (label: string) => {
         const i = texts.indexOf(label);
         return i >= 0 ? (texts[i + 1] ?? "") : "";
