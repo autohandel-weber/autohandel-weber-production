@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import { Menu, X } from "lucide-react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import logo from "@/assets/logo-weber.png.asset.json";
 import { getCars } from "@/lib/cars.functions";
@@ -27,7 +28,7 @@ const gallery = [
 
 const carsQuery = queryOptions({ queryKey: ["cars"], queryFn: () => getCars(), staleTime: 5 * 60 * 1000 });
 
-const HCI = "https://www.autoscout24.ch/de/hci/v2/4250/search";
+const MORE_CARS = "http://www.autohandel-weber.ch/web-occasionen-index.htm";
 const EMAIL = "patrick.weber@intergga.ch";
 const TEL = "079 422 55 41";
 
@@ -61,6 +62,8 @@ const nav = [
 
 function Index() {
   const { data: { cars } } = useSuspenseQuery(carsQuery);
+  const [menuOpen, setMenuOpen] = useState(false);
+  useReveal();
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur">
@@ -75,9 +78,34 @@ function Index() {
               </a>
             ))}
           </nav>
-          <a href={`tel:${TEL.replace(/\s/g, "")}`} className="rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
-            {TEL}
-          </a>
+          <div className="flex items-center gap-2">
+            <a href={`tel:${TEL.replace(/\s/g, "")}`} className="hidden rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground sm:inline-block">
+              {TEL}
+            </a>
+            <button
+              type="button"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label={menuOpen ? "Menü schliessen" : "Menü öffnen"}
+              aria-expanded={menuOpen}
+              className="rounded-sm p-2 text-foreground hover:bg-muted md:hidden"
+            >
+              {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+        <div className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-out md:hidden ${menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+          <nav className="min-h-0">
+            <div className="flex flex-col gap-1 border-t border-border px-6 py-4">
+              {nav.map(([id, l]) => (
+                <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)} className="rounded-sm px-2 py-3 text-lg font-medium hover:bg-muted hover:text-primary">
+                  {l}
+                </a>
+              ))}
+              <a href={`tel:${TEL.replace(/\s/g, "")}`} className="mt-2 rounded-sm bg-primary px-4 py-3 text-center font-semibold text-primary-foreground">
+                Anrufen: {TEL}
+              </a>
+            </div>
+          </nav>
         </div>
       </header>
 
@@ -87,14 +115,14 @@ function Index() {
         <div className="absolute -bottom-40 left-1/3 h-[24rem] w-[24rem] rounded-full bg-primary/25 blur-3xl" />
         <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-[1.2fr_1fr] md:py-28">
           <div>
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-accent">Seit 2004 · Reigoldswil BL</p>
-          <h1 className="font-display text-6xl leading-[0.9] md:text-8xl lg:text-9xl">
+          <p className="hero-in mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-accent" style={{ animationDelay: "100ms" }}>Seit 2004 · Reigoldswil BL</p>
+          <h1 style={{ animationDelay: "250ms" }} className="hero-in font-display text-6xl leading-[0.9] md:text-8xl lg:text-9xl">
             Autohandel &<br />Beschriftungen
           </h1>
-          <p className="mt-6 max-w-xl text-lg text-ink-foreground/75">
+          <p className="hero-in mt-6 max-w-xl text-lg text-ink-foreground/75" style={{ animationDelay: "450ms" }}>
             Geprüfte Occasionen mit 12 Monaten Garantie, fairer Ankauf und Fahrzeugbeschriftungen aus einer Hand.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="hero-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: "600ms" }}>
             <a href="#fahrzeuge" className="rounded-sm bg-primary px-6 py-3 font-semibold text-primary-foreground">
               {cars.length} Fahrzeuge ansehen
             </a>
@@ -103,7 +131,7 @@ function Index() {
             </a>
           </div>
           </div>
-          <div className="rounded-xl bg-card p-4 shadow-2xl">
+          <div className="hero-in rounded-xl bg-card p-4 shadow-2xl" style={{ animationDelay: "500ms" }}>
             <img src={logo.url} alt="Logo Weber AutoHandel & Beschriftungen" className="w-full" />
           </div>
         </div>
@@ -113,7 +141,7 @@ function Index() {
       <section id="fahrzeuge" className="mx-auto max-w-7xl scroll-mt-20 px-6 py-24">
         <SectionHead kicker="Occasionen" title="Unsere Fahrzeuge" />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {cars.map((c) => (
+          {cars.slice(0, 6).map((c) => (
             <a key={c.url} href={c.url} target="_blank" rel="noopener noreferrer" className="group overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-primary">
               <div className="aspect-[4/3] overflow-hidden bg-muted">
                 <img src={c.img} alt={c.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -135,8 +163,8 @@ function Index() {
         </div>
         <p className="mt-8 text-center text-sm text-muted-foreground">Live von AutoScout24 – wird laufend aktualisiert.</p>
         <div className="mt-4 text-center">
-          <a href={HCI} target="_blank" rel="noopener noreferrer" className="inline-block rounded-sm border border-border px-6 py-3 font-semibold hover:border-primary">
-            Alle Fahrzeuge auf AutoScout24
+          <a href={MORE_CARS} target="_blank" rel="noopener noreferrer" className="inline-block rounded-sm bg-primary px-8 py-3 font-semibold text-primary-foreground">
+            Mehr auf AutoScout24
           </a>
         </div>
       </section>
@@ -256,6 +284,45 @@ function Index() {
       </section>
     </div>
   );
+}
+
+const REVEAL_SELECTOR = [
+  "#fahrzeuge > *",
+  "#fahrzeuge .grid > a",
+  "#ankauf > *",
+  "#ankauf form > *",
+  "#beschriftungen > div > div",
+  "#beschriftungen li",
+  "#beschriftungen figure",
+  "#ueber-uns > *",
+  "#ueber-uns a",
+  "#kontakt > div > div",
+].join(",");
+
+// Blendet Elemente beim Scrollen weich ein (respektiert "reduzierte Bewegung").
+function useReveal() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const els = Array.from(document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR));
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+    );
+    for (const el of els) {
+      const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
+      el.style.transitionDelay = `${Math.min(siblings.indexOf(el), 6) * 80}ms`;
+      el.classList.add("reveal");
+      io.observe(el);
+    }
+    return () => io.disconnect();
+  }, []);
 }
 
 function SectionHead({ kicker, title }: { kicker: string; title: string }) {
