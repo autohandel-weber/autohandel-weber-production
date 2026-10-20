@@ -8,6 +8,13 @@
       "when": 1792501750393,
       "tag": "0000_create_enquiry_submissions",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792522569879,
+      "tag": "0001_create_shop_orders",
+      "breakpoints": true
     }
   ]
 }
