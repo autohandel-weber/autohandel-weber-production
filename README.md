@@ -1,14 +1,20 @@
-# Welcome to your Lovable project
+# Weber Autohaus Modern
+
+Wie würdest du eine neue Version meiner Webseite http://www.autohandel-weber.ch/ gestalten? Ich möchte, dass sie modern ist und dem heutigen standard entspricht. anstatt viele einzelne pages möchte ich eine page, bei der man scrollen kann um auf die verschiedenen menu items zu gelangen.
+
+ich möchte, dass sie direkt auf der webseite erscheinen und wenn man drauf klickt, kommt man auf autoscout. also auf der webseite eine grobe spiegelung des autoscouts profil
+
+ich weiss es nicht (ob mein AutoScout24-Account die HCI-Schnittstelle hat). kannst du das während dem builden herausfinden?
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/af224525-9329-4a34-a8ab-a82eac5cea01).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +26,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
