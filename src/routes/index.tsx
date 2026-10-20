@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import logo from "@/assets/logo-weber.png.asset.json";
 import { getCars } from "@/lib/cars.functions";
@@ -31,6 +31,8 @@ const carsQuery = queryOptions({ queryKey: ["cars"], queryFn: () => getCars(), s
 const MORE_CARS = "http://www.autohandel-weber.ch/web-occasionen-index.htm";
 const EMAIL = "patrick.weber@intergga.ch";
 const TEL = "079 422 55 41";
+// Internationale Schreibweise – öffnet auf dem Handy direkt die Telefon-App.
+const TEL_HREF = "tel:+41794225541";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -72,7 +74,7 @@ function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   useReveal();
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background pb-16 text-foreground md:pb-0">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <a href="#top" className="shrink-0">
@@ -86,8 +88,8 @@ function Index() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <a href={`tel:${TEL.replace(/\s/g, "")}`} className="hidden rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground sm:inline-block">
-              {TEL}
+            <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="hidden items-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground sm:inline-flex">
+              <Phone className="h-4 w-4" /> {TEL}
             </a>
             <button
               type="button"
@@ -108,8 +110,8 @@ function Index() {
                   {l}
                 </a>
               ))}
-              <a href={`tel:${TEL.replace(/\s/g, "")}`} className="mt-2 rounded-sm bg-primary px-4 py-3 text-center font-semibold text-primary-foreground">
-                Anrufen: {TEL}
+              <a href={TEL_HREF} className="mt-2 flex items-center justify-center gap-2 rounded-sm bg-primary px-4 py-3 text-center font-semibold text-primary-foreground">
+                <Phone className="h-5 w-5" /> Anrufen: {TEL}
               </a>
             </div>
           </nav>
@@ -132,6 +134,9 @@ function Index() {
           <div className="hero-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: "600ms" }}>
             <a href="#fahrzeuge" className="rounded-sm bg-primary px-6 py-3 font-semibold text-primary-foreground">
               {cars.length} Fahrzeuge ansehen
+            </a>
+            <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="flex items-center gap-2 rounded-sm border border-accent bg-accent/15 px-6 py-3 font-semibold hover:border-accent">
+              <Phone className="h-5 w-5" /> {TEL}
             </a>
             <a href="#ankauf" className="rounded-sm border border-ink-foreground/30 px-6 py-3 font-semibold hover:border-accent">
               Auto verkaufen
@@ -284,7 +289,9 @@ function Index() {
             <p className="text-ink-foreground/70">Hohlegasse 37<br />4104 Oberwil</p>
           </div>
           <div className="space-y-3">
-            <a href={`tel:${TEL.replace(/\s/g, "")}`} className="block font-display text-4xl text-accent">{TEL}</a>
+            <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="flex items-center gap-3 rounded-sm bg-primary px-6 py-4 font-semibold text-primary-foreground">
+              <Phone className="h-6 w-6 shrink-0" /> Anrufen: <span className="font-display text-3xl">{TEL}</span>
+            </a>
             <a href={`mailto:${EMAIL}`} className="block text-ink-foreground/70 hover:text-ink-foreground">{EMAIL}</a>
           </div>
         </div>
@@ -292,6 +299,15 @@ function Index() {
           © {new Date().getFullYear()} Weber Autohandel & Beschriftungen
         </p>
       </section>
+
+      {/* Auf dem Handy immer sichtbar: ein Tipp, und die Telefon-App öffnet sich */}
+      <a
+        href={TEL_HREF}
+        aria-label={`Anrufen: ${TEL}`}
+        className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center gap-2 bg-primary px-6 py-4 font-semibold text-primary-foreground md:hidden"
+      >
+        <Phone className="h-5 w-5" /> Anrufen: {TEL}
+      </a>
     </div>
   );
 }
@@ -382,6 +398,9 @@ function Ankauf() {
         <p className="text-lg text-muted-foreground">
           Senden Sie uns ein paar Angaben und Fotos zu Ihrem Fahrzeug – wir melden uns mit einem fairen Angebot.
         </p>
+        <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="mt-6 inline-flex items-center gap-2 font-semibold text-primary">
+          <Phone className="h-5 w-5" /> Lieber anrufen: {TEL}
+        </a>
       </div>
       <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
         {fields.slice(0, 4).map((f) => (
