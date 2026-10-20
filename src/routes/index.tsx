@@ -60,6 +60,13 @@ const nav = [
   ["kontakt", "Kontakt"],
 ] as const;
 
+const PARTNERS = [
+  { name: "Garage Mory", url: "http://www.garagemory.ch/" },
+  { name: "M-Automobil Service", url: "http://www.m-auto.ch/" },
+  { name: "Audelia", url: "https://www.bewerbungswerkstatt.ch/", note: "Ihre Bewerbungsspezialistin" },
+  { name: "StartSaldo", url: "https://www.startsaldo.ch/", note: "Ihre Buchhaltung" },
+];
+
 function Index() {
   const { data: { cars } } = useSuspenseQuery(carsQuery);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -246,14 +253,17 @@ function Index() {
         </div>
         <div className="mt-12">
           <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">Partner</p>
-          <div className="flex flex-wrap gap-3">
-            {[
-              ["Garage Mory", "http://www.garagemory.ch/"],
-              ["M-Automobil Service", "http://www.m-auto.ch/"],
-              ["Audelia", "https://audelia.ch/"],
-            ].map(([n, u]) => (
-              <a key={u} href={u} target="_blank" rel="noopener noreferrer" className="rounded-sm border border-border px-4 py-2 hover:border-primary">
-                {n}
+          <div className="grid gap-3 sm:grid-cols-2">
+            {PARTNERS.map((p) => (
+              <a
+                key={p.url}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-sm border border-border px-4 py-3 transition-colors hover:border-primary"
+              >
+                <span className="block font-semibold">{p.name}</span>
+                {p.note && <span className="block text-sm text-muted-foreground">{p.note}</span>}
               </a>
             ))}
           </div>
