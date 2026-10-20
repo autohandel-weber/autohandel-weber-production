@@ -3,6 +3,27 @@ import { useState, type FormEvent } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import logo from "@/assets/logo-weber.png.asset.json";
 import { getCars } from "@/lib/cars.functions";
+import b1 from "@/assets/beschriftung-1.png.asset.json";
+import b2 from "@/assets/beschriftung-2.png.asset.json";
+import b3 from "@/assets/beschriftung-3.png.asset.json";
+import b4 from "@/assets/beschriftung-4.png.asset.json";
+import b5 from "@/assets/beschriftung-5.png.asset.json";
+import b6 from "@/assets/beschriftung-6.png.asset.json";
+import b7 from "@/assets/beschriftung-7.webp.asset.json";
+import b8 from "@/assets/beschriftung-8.webp.asset.json";
+import button59 from "@/assets/button-59mm.png.asset.json";
+import buttonsMotive from "@/assets/buttons-motive.png.asset.json";
+
+const gallery = [
+  { url: b1.url, alt: "Heckbeschriftung VW Caddy Bistro Kuhblick" },
+  { url: b2.url, alt: "Seitenbeschriftung Bistro Kuhblick" },
+  { url: b3.url, alt: "Ford S-Max mit Ultra Brag Beschriftung" },
+  { url: b4.url, alt: "Honda Rennmotorrad mit Dekor" },
+  { url: b5.url, alt: "Mercedes Sprinter REGO-FIX" },
+  { url: b8.url, alt: "Lieferwagen Seccosit" },
+  { url: b6.url, alt: "Flugzeug mit Breezer Beschriftung" },
+  { url: b7.url, alt: "Flugzeug Hawaiian Beschriftung" },
+];
 
 const carsQuery = queryOptions({ queryKey: ["cars"], queryFn: () => getCars(), staleTime: 5 * 60 * 1000 });
 
@@ -131,7 +152,8 @@ function Index() {
               Sie liefern uns Ihr Logo – den Rest erledigen wir. Ihr neues Fahrzeug holen Sie bereits beschriftet von der Garage ab.
             </p>
             <p className="mt-6 text-muted-foreground">
-              Neu: bedruckte Buttons 59 mm mit Clip, ab CHF 1.– pro Stück (je nach Auflage, exkl. Versand).
+              Ob Lieferwagen, Personenwagen, Motorrad oder sogar Flugzeug – wir beschriften alles.{" "}
+              <a href="#buttons" className="font-semibold text-primary">Neu: Buttons →</a>
             </p>
             <a href={`mailto:${EMAIL}?subject=Offerte%20Beschriftung`} className="mt-8 inline-block rounded-sm bg-primary px-6 py-3 font-semibold text-primary-foreground">
               Offerte verlangen
@@ -150,6 +172,36 @@ function Index() {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="mx-auto max-w-7xl px-6 pb-24">
+          <p className="mb-6 text-sm font-semibold uppercase tracking-[0.3em] text-primary">Referenzen</p>
+          <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+            {gallery.map((g) => (
+              <figure key={g.url} className="mb-4 break-inside-avoid overflow-hidden rounded-md bg-card shadow-sm">
+                <img src={g.url} alt={g.alt} loading="lazy" className="w-full transition-transform duration-500 hover:scale-105" />
+              </figure>
+            ))}
+          </div>
+
+          <div id="buttons" className="mt-20 grid items-center gap-10 rounded-xl bg-card p-8 shadow-sm md:grid-cols-2 md:p-12">
+            <div className="grid grid-cols-2 gap-4">
+              <img src={button59.url} alt="Button 59 mm mit Clip" loading="lazy" className="w-full rounded-md" />
+              <img src={buttonsMotive.url} alt="Bedruckte Buttons mit verschiedenen Motiven" loading="lazy" className="w-full rounded-md" />
+            </div>
+            <div>
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-accent">Neu</p>
+              <h3 className="font-display text-4xl md:text-5xl">Ihre eigenen Buttons</h3>
+              <p className="mt-4 text-muted-foreground">
+                Bedruckt mit Ihrem Motiv, 59 mm mit Clip – für Vereine, Events, Werbung oder als Geschenk.
+              </p>
+              <p className="mt-6 font-display text-3xl text-primary">CHF 1.– bis 7.– / Stk.</p>
+              <p className="text-sm text-muted-foreground">Je nach Auflage und Bildbearbeitung, exkl. Versand.</p>
+              <a href={`mailto:${EMAIL}?subject=Anfrage%20Buttons`} className="mt-6 inline-block rounded-sm bg-primary px-6 py-3 font-semibold text-primary-foreground">
+                Buttons anfragen
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
