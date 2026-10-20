@@ -99,7 +99,7 @@ function Index() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur">
         <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-4 sm:px-6 lg:flex lg:justify-between lg:gap-6">
           <a href="#top" className="shrink-0">
-            <ReliableImage src={logo.url} width={1200} height={655} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />
+            <ReliableImage src={logo.url} width={1200} height={640} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />
           </a>
           <nav className="hidden min-w-0 items-center gap-6 whitespace-nowrap text-sm font-medium uppercase lg:flex xl:gap-8">
             {nav.map(([id, l]) => (
@@ -166,8 +166,8 @@ function Index() {
             </a>
           </div>
           </div>
-          <div className="hero-in rounded-xl bg-card p-4 shadow-2xl" style={{ animationDelay: "500ms" }}>
-            <ReliableImage src={logo.url} width={1200} height={655} alt="Logo Weber AutoHandel & Beschriftungen" className="w-full" />
+          <div className="hero-in" style={{ animationDelay: "500ms" }}>
+            <ReliableImage src={logo.url} width={1200} height={640} alt="Logo Weber AutoHandel & Beschriftungen" className="w-full" />
           </div>
         </div>
       </section>
