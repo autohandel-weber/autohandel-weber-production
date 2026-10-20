@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Offen
+- [ ] Bilddateien optimieren, Einblendung absichern und Laden im Browser prüfen.
 - [ ] Kontaktformular-Versand über Resend einrichten — sendet die Anfrage (inkl. Fotos) direkt an die E-Mail des Kunden. Blocker: wartet auf Auftrag des Kunden («kommt aber erst später»).
 
 ## Erledigt
