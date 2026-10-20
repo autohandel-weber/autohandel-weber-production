@@ -1,0 +1,1 @@
+DELETE FROM public.shop_orders WHERE name = 'Test Kunde' AND email = 'test@example.com';
