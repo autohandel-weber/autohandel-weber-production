@@ -163,4 +163,5 @@ body { font-family: "Barlow", sans-serif; }
 .reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .hero-in { opacity: 1; animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }
