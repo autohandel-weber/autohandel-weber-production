@@ -36,9 +36,9 @@ export const submitEnquiry = createServerFn({ method: "POST" })
         paths.push(path);
       }
       const value = parsed.data;
-      const { error } = await supabaseAdmin.from("contact_submissions").insert({ id, kind: value.kind, name: value.name, email: value.email, phone: value.phone, subject: value.subject, message: value.message, vehicle: value.vehicle, photo_paths: paths, email_status: "not_configured" });
+      const { error } = await supabaseAdmin.from("contact_submissions").insert({ id, kind: value.kind, name: value.name, email: value.email, phone: value.phone, subject: value.subject, message: value.message, vehicle: value.kind === "vehicle" ? value.vehicle : {}, details: value.kind === "print" ? value.print : {}, photo_paths: paths, email_status: "not_configured" });
       if (error) throw error;
-      return { ok: true, message: "Vielen Dank – Ihre Anfrage wurde gespeichert." };
+      return { ok: true, message: "Vielen Dank! Ihre Anfrage ist bei uns eingegangen – wir melden uns so bald wie möglich." };
     } catch {
       if (paths.length) await supabaseAdmin.storage.from("enquiry-photos").remove(paths);
       return { ok: false, message: "Ihre Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut oder rufen Sie uns an." };

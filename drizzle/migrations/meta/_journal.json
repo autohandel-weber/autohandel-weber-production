@@ -29,6 +29,13 @@
       "when": 1792522803298,
       "tag": "0003_remove_test_orders_2",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792523497875,
+      "tag": "0004_add_enquiry_details",
+      "breakpoints": true
     }
   ]
 }

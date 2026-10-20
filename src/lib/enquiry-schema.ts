@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+export const PRINT_TYPES = ["Aufkleber / Kleber", "Poster", "Blache", "T-Shirt / Sweatshirt", "Anderes"] as const;
 export const ENQUIRY_RECIPIENT = "audeliab@proton.me";
 export const SELECTS = [
   { name: "Getriebe", options: ["Automatik", "Handgeschaltet", "Halbautomat"] },
@@ -8,7 +9,7 @@ export const SELECTS = [
 ] as const;
 const text = (max: number) => z.string().trim().max(max);
 export const enquirySchema = z.object({
-  kind: z.enum(["contact", "vehicle"]),
+  kind: z.enum(["contact", "vehicle", "print"]),
   name: text(100).min(1, "Bitte geben Sie Ihren Namen an."),
   email: text(255).email("Bitte geben Sie eine gültige E-Mail-Adresse an."),
   phone: text(40).regex(/^[+\d\s()./-]*$/, "Bitte prüfen Sie Ihre Telefonnummer."),
@@ -23,9 +24,15 @@ export const enquirySchema = z.object({
     Treibstoff: z.enum(["", ...SELECTS[1].options]),
     Fahrzeugart: z.enum(["", ...SELECTS[2].options]),
   }),
+  print: z.object({
+    Motiv: text(300), Wunschfarbe: text(100), Wunschgrösse: text(100),
+    Anzahl: text(10).regex(/^$|^\d+$/, "Bitte geben Sie die Anzahl als Zahl an."),
+    Druckart: z.enum(["", ...PRINT_TYPES]),
+  }),
 }).superRefine((value, ctx) => {
   if (value.kind === "contact" && !value.message) ctx.addIssue({ code: "custom", path: ["message"], message: "Bitte geben Sie eine Nachricht ein." });
   if (value.kind === "vehicle" && !value.vehicle.Marke) ctx.addIssue({ code: "custom", path: ["vehicle", "Marke"], message: "Bitte geben Sie die Fahrzeugmarke an." });
+  if (value.kind === "print" && !value.print.Motiv) ctx.addIssue({ code: "custom", path: ["print", "Motiv"], message: "Bitte beschreiben Sie Ihr Motiv." });
 });
 
 export function enquiryFromForm(form: FormData) {
@@ -34,6 +41,7 @@ export function enquiryFromForm(form: FormData) {
     kind: read("kind"), name: read("Name"), email: read("E-Mail"), phone: read("Telefon"),
     subject: read("Betreff"), message: read("Nachricht") || read("Bemerkungen"), website: read("website"),
     vehicle: { Marke: read("Marke"), Modell: read("Modell"), Jahrgang: read("Jahrgang"), Kilometer: read("Kilometer"), Getriebe: read("Getriebe"), Treibstoff: read("Treibstoff"), Fahrzeugart: read("Fahrzeugart") },
+    print: { Motiv: read("Motiv"), Wunschfarbe: read("Wunschfarbe"), Wunschgrösse: read("Wunschgrösse"), Anzahl: read("Anzahl"), Druckart: read("Druckart") },
   };
 }
 

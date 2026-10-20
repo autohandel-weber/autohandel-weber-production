@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { EnquiryForm } from "@/components/enquiry-form";
 import { useCart } from "@/lib/cart";
 import { ArrowLeft, Grid3x3, ShoppingCart, Info, Palette, Phone, Printer, Truck } from "lucide-react";
 import { ReliableImage } from "@/components/reliable-image";
@@ -168,6 +169,10 @@ function Shop() {
                 <ReliableImage src={im.src} width={im.width} height={im.height} loading="lazy" alt={`Digitaldruck Beispiel ${i + 1}`} className="max-h-full max-w-full object-contain" />
               </div>
             ))}
+          </div>
+          <div className="rounded-lg border border-border bg-card p-6 md:col-span-2 md:p-8">
+            <h3 className="heading-sub mb-6">Offerte für Ihr Motiv</h3>
+            <EnquiryForm kind="print" />
           </div>
         </div>
       </section>
