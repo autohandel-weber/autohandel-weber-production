@@ -6,27 +6,28 @@ import { ReliableImage } from "@/components/reliable-image";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { Button } from "@/components/ui/button";
 import logoSrc from "@/assets/images/logo-weber.webp";
-const logo = { url: logoSrc };
 import { getCars } from "@/lib/cars.functions";
 import b1Src from "@/assets/images/beschriftung-1.webp";
-const b1 = { url: b1Src };
 import b2Src from "@/assets/images/beschriftung-2.webp";
-const b2 = { url: b2Src };
 import b3Src from "@/assets/images/beschriftung-3.webp";
-const b3 = { url: b3Src };
 import b4Src from "@/assets/images/beschriftung-4.webp";
-const b4 = { url: b4Src };
 import b5Src from "@/assets/images/beschriftung-5.webp";
-const b5 = { url: b5Src };
 import b6Src from "@/assets/images/beschriftung-6.webp";
-const b6 = { url: b6Src };
 import b7Src from "@/assets/images/beschriftung-7.webp";
-const b7 = { url: b7Src };
 import b8Src from "@/assets/images/beschriftung-8.webp";
-const b8 = { url: b8Src };
 import button59Src from "@/assets/images/button-59mm.webp";
-const button59 = { url: button59Src };
 import buttonsMotiveSrc from "@/assets/images/buttons-motive.webp";
+
+const logo = { url: logoSrc };
+const b1 = { url: b1Src };
+const b2 = { url: b2Src };
+const b3 = { url: b3Src };
+const b4 = { url: b4Src };
+const b5 = { url: b5Src };
+const b6 = { url: b6Src };
+const b7 = { url: b7Src };
+const b8 = { url: b8Src };
+const button59 = { url: button59Src };
 const buttonsMotive = { url: buttonsMotiveSrc };
 
 const gallery = [
