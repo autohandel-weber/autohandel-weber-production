@@ -166,8 +166,8 @@ function Index() {
             </a>
           </div>
           </div>
-          <div className="hero-in rounded-xl bg-card p-4 shadow-2xl" style={{ animationDelay: "500ms" }}>
-            <ReliableImage src={logo.url} width={1200} height={655} alt="Logo Weber AutoHandel & Beschriftungen" className="w-full" />
+          <div className="hero-in" style={{ animationDelay: "500ms" }}>
+            <ReliableImage src={logo.url} width={1200} height={640} alt="Logo Weber AutoHandel & Beschriftungen" className="w-full" />
           </div>
         </div>
       </section>
