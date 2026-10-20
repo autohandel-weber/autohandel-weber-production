@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, Phone, X } from "lucide-react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
@@ -116,6 +116,7 @@ function Index() {
                 {l}
               </a>
             ))}
+            <Link to="/shop" className="text-muted-foreground transition-colors hover:text-primary">Shop</Link>
           </nav>
           <div className="flex shrink-0 items-center gap-2">
             <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground sm:inline-flex">
@@ -142,6 +143,7 @@ function Index() {
                   {l}
                 </a>
               ))}
+              <Link to="/shop" className="rounded-sm px-2 py-3 text-lg font-medium hover:bg-muted hover:text-primary">Shop</Link>
               <a href={TEL_HREF} className="mt-2 flex items-center justify-center gap-2 rounded-sm bg-primary px-4 py-3 text-center font-semibold text-primary-foreground">
                 <Phone className="h-5 w-5" /> Anrufen: {TEL}
               </a>
@@ -230,6 +232,9 @@ function Index() {
             <Button asChild className="mt-8 h-12 rounded-sm px-6"><a href="#kontakt">
               Offerte verlangen
             </a></Button>
+            <Button asChild variant="outline" className="ml-3 mt-8 h-12 rounded-sm px-6"><Link to="/shop">
+              Zum Aufkleber-Shop / Preise
+            </Link></Button>
           </div>
           <ul className="grid gap-4 self-center">
             {[
