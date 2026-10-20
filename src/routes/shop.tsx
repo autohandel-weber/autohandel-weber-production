@@ -134,7 +134,7 @@ function Shop() {
       </section>
 
       {SHOP.map((g, gi) => (
-        <section key={g.group} id={g.group.toLowerCase()} className={`scroll-mt-20 ${gi % 2 ? "bg-secondary" : ""}`}>
+        <section key={g.group} id={g.group.toLowerCase()} className={`scroll-mt-20 ${sectionBg(gi)}`}>
           <div className="mx-auto max-w-7xl px-6 py-20">
             <SectionHead kicker={g.subtitle} title={g.group} />
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -158,7 +158,7 @@ function Shop() {
         </section>
       ))}
 
-      <section id="digitaldruck" className="scroll-mt-20 bg-secondary">
+      <section id="digitaldruck" className={`scroll-mt-20 ${sectionBg(SHOP.length)}`}>
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2">
           <div>
             <SectionHead kicker="Digitaldruck" title="Eigenes Motiv" />
@@ -168,7 +168,7 @@ function Shop() {
           </div>
           <div className="grid grid-cols-2 gap-4 self-center">
             {DIGITALDRUCK.map((im, i) => (
-              <div key={i} className="flex aspect-square items-center justify-center rounded-lg bg-card p-4">
+              <div key={i} className="flex aspect-square items-center justify-center rounded-lg border border-border bg-card p-4">
                 <ReliableImage src={im.src} width={im.width} height={im.height} loading="lazy" alt={`Digitaldruck Beispiel ${i + 1}`} className="max-h-full max-w-full object-contain" />
               </div>
             ))}
@@ -180,7 +180,7 @@ function Shop() {
         </div>
       </section>
 
-      <section>
+      <section className={`scroll-mt-20 ${sectionBg(SHOP.length + 1)}`}>
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2">
           <div>
             <SectionHead kicker="Gut zu wissen" title="Folien & Montage" />
