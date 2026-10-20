@@ -165,3 +165,9 @@ body { font-family: "Barlow", sans-serif; }
   .hero-in { opacity: 1; animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* Einheitliche Typografie */
+@utility kicker { font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3em; }
+@utility heading-section { font-family: "Bebas Neue", sans-serif; letter-spacing: 0.02em; font-size: 3rem; line-height: 1; @media (width >= 48rem) { font-size: 3.75rem; } }
+@utility heading-sub { font-family: "Bebas Neue", sans-serif; letter-spacing: 0.02em; font-size: 2.25rem; line-height: 1.1; @media (width >= 48rem) { font-size: 2.5rem; } }
+@utility body-text { font-size: 1.125rem; line-height: 1.625; }
