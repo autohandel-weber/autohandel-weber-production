@@ -139,7 +139,7 @@ function Shop() {
             <SectionHead kicker={g.subtitle} title={g.group} />
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {g.items.map((item) => (
-                <article key={item.name} className="flex flex-col rounded-lg border border-border bg-card p-6">
+                <article key={item.name} className="flex flex-col rounded-lg border border-border bg-card p-6 shadow-sm">
                   <div className="grid grid-cols-2 gap-3">
                     {item.motifs.slice(0, 4).map((im, i) => (
                       <div key={i} className="flex aspect-[4/3] items-center justify-center rounded-sm bg-card p-2">
