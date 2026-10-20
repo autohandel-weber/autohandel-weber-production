@@ -1,7 +1,10 @@
-import { useEffect, useState, type ImgHTMLAttributes } from "react";
+import { useEffect, useRef, useState, type ImgHTMLAttributes } from "react";
+
+const MAX_RETRIES = 5;
 
 /** Retry temporary delivery failures without substituting another photo. */
 export function ReliableImage({ src, onLoad, onError, ...props }: ImgHTMLAttributes<HTMLImageElement>) {
+  const ref = useRef<HTMLImageElement>(null);
   const [attempt, setAttempt] = useState(0);
   const [failed, setFailed] = useState(false);
 
@@ -10,12 +13,18 @@ export function ReliableImage({ src, onLoad, onError, ...props }: ImgHTMLAttribu
     setFailed(false);
   }, [src]);
 
+  // A server-rendered image can fail before React attaches onError; detect that after hydration.
   useEffect(() => {
-    if (!failed || attempt >= 2) return;
+    const img = ref.current;
+    if (img && img.complete && img.naturalWidth === 0 && img.getAttribute("src")) setFailed(true);
+  }, []);
+
+  useEffect(() => {
+    if (!failed || attempt >= MAX_RETRIES) return;
     const timer = window.setTimeout(() => {
       setFailed(false);
       setAttempt((value) => value + 1);
-    }, 1000 * (attempt + 1));
+    }, Math.min(1000 * 2 ** attempt, 8000));
     return () => window.clearTimeout(timer);
   }, [failed, attempt]);
 
@@ -34,7 +43,7 @@ export function ReliableImage({ src, onLoad, onError, ...props }: ImgHTMLAttribu
     ? `${src}${src.includes("?") ? "&" : "?"}imageRetry=${attempt}`
     : src;
 
-  return <img {...props} src={imageSrc} decoding="async" onLoad={(event) => {
+  return <img {...props} ref={ref} src={imageSrc} decoding="async" onLoad={(event) => {
     setFailed(false);
     onLoad?.(event);
   }} onError={(event) => {

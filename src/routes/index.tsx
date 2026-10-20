@@ -5,18 +5,30 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { ReliableImage } from "@/components/reliable-image";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo-weber-optimized.webp.asset.json";
+import logoSrc from "@/assets/images/logo-weber.webp";
 import { getCars } from "@/lib/cars.functions";
-import b1 from "@/assets/beschriftung-1-optimized.webp.asset.json";
-import b2 from "@/assets/beschriftung-2-optimized.webp.asset.json";
-import b3 from "@/assets/beschriftung-3-optimized.webp.asset.json";
-import b4 from "@/assets/beschriftung-4-optimized.webp.asset.json";
-import b5 from "@/assets/beschriftung-5-optimized.webp.asset.json";
-import b6 from "@/assets/beschriftung-6-optimized.webp.asset.json";
-import b7 from "@/assets/beschriftung-7-optimized.webp.asset.json";
-import b8 from "@/assets/beschriftung-8-optimized.webp.asset.json";
-import button59 from "@/assets/button-59mm-optimized.webp.asset.json";
-import buttonsMotive from "@/assets/buttons-motive-optimized.webp.asset.json";
+import b1Src from "@/assets/images/beschriftung-1.webp";
+import b2Src from "@/assets/images/beschriftung-2.webp";
+import b3Src from "@/assets/images/beschriftung-3.webp";
+import b4Src from "@/assets/images/beschriftung-4.webp";
+import b5Src from "@/assets/images/beschriftung-5.webp";
+import b6Src from "@/assets/images/beschriftung-6.webp";
+import b7Src from "@/assets/images/beschriftung-7.webp";
+import b8Src from "@/assets/images/beschriftung-8.webp";
+import button59Src from "@/assets/images/button-59mm.webp";
+import buttonsMotiveSrc from "@/assets/images/buttons-motive.webp";
+
+const logo = { url: logoSrc };
+const b1 = { url: b1Src };
+const b2 = { url: b2Src };
+const b3 = { url: b3Src };
+const b4 = { url: b4Src };
+const b5 = { url: b5Src };
+const b6 = { url: b6Src };
+const b7 = { url: b7Src };
+const b8 = { url: b8Src };
+const button59 = { url: button59Src };
+const buttonsMotive = { url: buttonsMotiveSrc };
 
 const gallery = [
   { url: b1.url, width: 1386, height: 1158, alt: "Heckbeschriftung VW Caddy Bistro Kuhblick" },
