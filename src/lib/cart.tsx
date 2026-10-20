@@ -11,6 +11,8 @@ type Cart = {
   clear: () => void;
 };
 const CartContext = createContext<Cart | null>(null);
+const noop = () => {};
+const EMPTY: Cart = { lines: [], count: 0, add: noop, update: noop, remove: noop, clear: noop };
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
@@ -37,7 +39,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
 }
 
 export function useCart() {
-  const cart = useContext(CartContext);
-  if (!cart) throw new Error("useCart must be used inside CartProvider");
-  return cart;
+  // A hot-reloaded page can briefly render before the provider; show an empty cart instead of crashing.
+  return useContext(CartContext) ?? EMPTY;
 }
