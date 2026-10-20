@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
-import hero from "@/assets/hero.jpg";
-import cars from "@/data/cars.json";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import logo from "@/assets/logo-weber.png.asset.json";
+import { getCars } from "@/lib/cars.functions";
+
+const carsQuery = queryOptions({ queryKey: ["cars"], queryFn: () => getCars(), staleTime: 5 * 60 * 1000 });
 
 const HCI = "https://www.autoscout24.ch/de/hci/v2/4250/search";
 const EMAIL = "patrick.weber@intergga.ch";
@@ -23,6 +26,7 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(carsQuery),
   component: Index,
 });
 
@@ -35,12 +39,13 @@ const nav = [
 ] as const;
 
 function Index() {
+  const { data: { cars } } = useSuspenseQuery(carsQuery);
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="#top" className="font-display text-2xl">
-            WEBER<span className="text-primary">.</span>
+          <a href="#top" className="shrink-0">
+            <img src={logo.url} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />
           </a>
           <nav className="hidden gap-8 text-sm font-medium uppercase tracking-wider md:flex">
             {nav.map(([id, l]) => (
@@ -56,24 +61,29 @@ function Index() {
       </header>
 
       {/* Hero */}
-      <section id="top" className="relative flex min-h-[92vh] items-end overflow-hidden">
-        <img src={hero} alt="Garage am Abend" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
-        <div className="relative mx-auto w-full max-w-7xl px-6 pb-20">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-primary">Seit 2004 · Reigoldswil BL</p>
+      <section id="top" className="relative overflow-hidden bg-ink pt-20 text-ink-foreground">
+        <div className="absolute -right-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-accent/25 blur-3xl" />
+        <div className="absolute -bottom-40 left-1/3 h-[24rem] w-[24rem] rounded-full bg-primary/25 blur-3xl" />
+        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-[1.2fr_1fr] md:py-28">
+          <div>
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-accent">Seit 2004 · Reigoldswil BL</p>
           <h1 className="font-display text-6xl leading-[0.9] md:text-8xl lg:text-9xl">
             Autohandel &<br />Beschriftungen
           </h1>
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+          <p className="mt-6 max-w-xl text-lg text-ink-foreground/75">
             Geprüfte Occasionen mit 12 Monaten Garantie, fairer Ankauf und Fahrzeugbeschriftungen aus einer Hand.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#fahrzeuge" className="rounded-sm bg-primary px-6 py-3 font-semibold text-primary-foreground">
               {cars.length} Fahrzeuge ansehen
             </a>
-            <a href="#ankauf" className="rounded-sm border border-border px-6 py-3 font-semibold hover:border-primary">
+            <a href="#ankauf" className="rounded-sm border border-ink-foreground/30 px-6 py-3 font-semibold hover:border-accent">
               Auto verkaufen
             </a>
+          </div>
+          </div>
+          <div className="rounded-xl bg-card p-4 shadow-2xl">
+            <img src={logo.url} alt="Logo Weber AutoHandel & Beschriftungen" className="w-full" />
           </div>
         </div>
       </section>
@@ -102,7 +112,8 @@ function Index() {
             </a>
           ))}
         </div>
-        <div className="mt-10 text-center">
+        <p className="mt-8 text-center text-sm text-muted-foreground">Live von AutoScout24 – wird laufend aktualisiert.</p>
+        <div className="mt-4 text-center">
           <a href={HCI} target="_blank" rel="noopener noreferrer" className="inline-block rounded-sm border border-border px-6 py-3 font-semibold hover:border-primary">
             Alle Fahrzeuge auf AutoScout24
           </a>
@@ -112,7 +123,7 @@ function Index() {
       <Ankauf />
 
       {/* Beschriftungen */}
-      <section id="beschriftungen" className="scroll-mt-20 bg-card">
+      <section id="beschriftungen" className="scroll-mt-20 bg-secondary">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-24 md:grid-cols-2">
           <div>
             <SectionHead kicker="Weber Beschriftungen" title="Fahrzeug­beschriftungen" />
@@ -134,7 +145,7 @@ function Index() {
               "Digitaldruck 4-farbig, wetterbeständig, in Fotoqualität",
             ].map((s, i) => (
               <li key={s} className="flex items-center gap-5 border-b border-border pb-4">
-                <span className="font-display text-4xl text-primary">0{i + 1}</span>
+                <span className="font-display text-4xl text-accent">0{i + 1}</span>
                 <span className="text-lg">{s}</span>
               </li>
             ))}
@@ -170,23 +181,24 @@ function Index() {
       </section>
 
       {/* Kontakt */}
-      <section id="kontakt" className="scroll-mt-20 border-t border-border bg-card">
+      <section id="kontakt" className="scroll-mt-20 bg-ink text-ink-foreground">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-24 md:grid-cols-3">
           <div>
-            <SectionHead kicker="Kontakt" title="So erreichen Sie uns" />
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-accent">Kontakt</p>
+            <h2 className="font-display text-5xl md:text-6xl">So erreichen Sie uns</h2>
           </div>
           <div>
             <p className="font-semibold">Autohandel</p>
-            <p className="text-muted-foreground">Seewenstrasse 2<br />4418 Reigoldswil</p>
+            <p className="text-ink-foreground/70">Seewenstrasse 2<br />4418 Reigoldswil</p>
             <p className="mt-6 font-semibold">Beschriftungen</p>
-            <p className="text-muted-foreground">Hohlegasse 37<br />4104 Oberwil</p>
+            <p className="text-ink-foreground/70">Hohlegasse 37<br />4104 Oberwil</p>
           </div>
           <div className="space-y-3">
-            <a href={`tel:${TEL.replace(/\s/g, "")}`} className="block font-display text-4xl text-primary">{TEL}</a>
-            <a href={`mailto:${EMAIL}`} className="block text-muted-foreground hover:text-foreground">{EMAIL}</a>
+            <a href={`tel:${TEL.replace(/\s/g, "")}`} className="block font-display text-4xl text-accent">{TEL}</a>
+            <a href={`mailto:${EMAIL}`} className="block text-ink-foreground/70 hover:text-ink-foreground">{EMAIL}</a>
           </div>
         </div>
-        <p className="border-t border-border py-6 text-center text-sm text-muted-foreground">
+        <p className="border-t border-ink-foreground/15 py-6 text-center text-sm text-ink-foreground/60">
           © {new Date().getFullYear()} Weber Autohandel & Beschriftungen
         </p>
       </section>
