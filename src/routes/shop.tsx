@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { toast } from "sonner";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { useCart } from "@/lib/cart";
@@ -6,7 +7,7 @@ import { ArrowLeft, Grid3x3, ShoppingCart, Info, Palette, Phone, Printer, Truck 
 import { ReliableImage } from "@/components/reliable-image";
 import { Button } from "@/components/ui/button";
 import logoSrc from "@/assets/images/logo-weber.webp";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { CHROME_SURCHARGE, DIGITALDRUCK, FOLIENFARBEN, SHIPPING, SHOP, priceRange, type Motif } from "@/lib/shop-data";
 
 const TEL = "079 422 55 41";
@@ -48,8 +49,10 @@ function CartButton() {
 
 function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
   const { add } = useCart();
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="mt-4 h-11 w-full rounded-sm"><Grid3x3 /> Alle {motifs.length} Motive ansehen</Button>
       </DialogTrigger>
@@ -66,13 +69,13 @@ function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
               </div>
               <p className="mt-3 font-semibold">{m.name} <span className="text-muted-foreground">#{i + 1}</span></p>
               <p className="font-display text-2xl text-primary">CHF {m.price}.–</p>
-              <Button type="button" size="sm" className="mt-auto rounded-sm" onClick={() => { add(m.id); toast.success(`${m.name} #${i + 1} im Warenkorb`, { action: { label: "Zum Warenkorb", onClick: () => { window.location.href = "/warenkorb"; } } }); }}>
+              <Button type="button" size="sm" className="mt-auto rounded-sm" onClick={() => { add(m.id); setOpen(false); toast.success(`${m.name} #${i + 1} im Warenkorb`, { action: { label: "Zum Warenkorb", onClick: () => { void navigate({ to: "/warenkorb" }); } } }); }}>
                 <ShoppingCart /> In den Warenkorb
               </Button>
             </li>
           ))}
         </ul>
-        <Button asChild variant="outline" className="h-12 rounded-sm"><Link to="/warenkorb"><ShoppingCart /> Zum Warenkorb</Link></Button>
+        <DialogClose asChild><Button asChild variant="outline" className="h-12 rounded-sm"><Link to="/warenkorb"><ShoppingCart /> Zum Warenkorb</Link></Button></DialogClose>
       </DialogContent>
     </Dialog>
   );
