@@ -385,7 +385,6 @@ function Index() {
         </div>
         <div className="mx-auto max-w-7xl px-6 pb-24">
           <div className="max-w-3xl">
-            <h3 className="mb-8 heading-sub">Schreiben Sie uns</h3>
             <EnquiryForm kind="contact" />
           </div>
         </div>

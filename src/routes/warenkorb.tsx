@@ -146,7 +146,7 @@ function Warenkorb() {
                   </fieldset>
                   <label className="grid gap-1.5 text-sm font-medium">Bemerkungen (z. B. Farbe, Grösse)<textarea name="note" maxLength={2000} rows={3} className={input} /></label>
                   <Button type="submit" disabled={pending} className="h-12 rounded-sm">{pending ? <LoaderCircle className="animate-spin" /> : <CheckCircle2 />}{pending ? "Wird gesendet …" : `Verbindlich bestellen · CHF ${priced.total}.–`}</Button>
-                  {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+                  {error && <FormError message={error} />}
                   <p className="text-sm text-muted-foreground">Die Ware wird nach Zahlungseingang per Post verschickt.</p>
                 </form>
               </section>
