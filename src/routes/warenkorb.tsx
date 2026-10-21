@@ -127,7 +127,7 @@ function Warenkorb() {
                 </dl>
               </section>
 
-              <section aria-label="Bestellung abschliessen">
+              <section aria-label="Bestellung abschliessen" className="rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
                 <h2 className="heading-sub mb-6">Bestellung abschliessen</h2>
                 <form onSubmit={submit} className="grid gap-4">
                   <div className="hidden" aria-hidden="true"><input name="website" tabIndex={-1} autoComplete="off" /></div>
