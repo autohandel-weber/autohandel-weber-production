@@ -45,7 +45,7 @@ const gallery = [
 
 const carsQuery = queryOptions({ queryKey: ["cars"], queryFn: () => getCars(), staleTime: 5 * 60 * 1000 });
 
-const MORE_CARS = "http://www.autohandel-weber.ch/web-occasionen-index.htm";
+const MORE_CARS = "https://www.autoscout24.ch/de/s/seller-63333";
 const EMAIL = "patrick.weber@intergga.ch";
 const TEL = "079 422 55 41";
 // Internationale Schreibweise – öffnet auf dem Handy direkt die Telefon-App.
