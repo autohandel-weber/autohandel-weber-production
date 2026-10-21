@@ -161,11 +161,8 @@ function Warenkorb() {
 
 function Confirmation({ done }: { done: Done }) {
   return (
-    <div className="mx-auto max-w-2xl text-center">
-      <CheckCircle2 className="mx-auto h-14 w-14 text-primary" />
-      <p className="mt-6 mb-2 kicker text-primary">Vielen Dank</p>
-      <h2 className="heading-section">Bestellung erhalten</h2>
-      <p className="mt-4 body-text text-muted-foreground">Ihre Bestellnummer: <strong className="text-foreground">{done.orderNumber}</strong> · Total CHF {done.total}.–</p>
+    <div className="mx-auto max-w-2xl">
+      <FormSuccess kicker="Bestellung bestätigt" message={`Vielen Dank! Ihre Bestellung ${done.orderNumber} ist bei uns eingegangen – Total CHF ${done.total}.–.`} />
       <div className="mt-8 rounded-lg border border-border bg-card p-6 text-left">
         {done.payment === "twint" ? <>
           <h2 className="heading-sub">Bezahlen mit TWINT</h2>
@@ -176,7 +173,7 @@ function Confirmation({ done }: { done: Done }) {
           <p className="mt-3 body-text text-muted-foreground">Wir senden Ihnen die Rechnung mit Einzahlungsschein über CHF {done.total}.–. Sobald die Zahlung eingegangen ist, verschicken wir Ihre Aufkleber per Post.</p>
         </>}
       </div>
-      <Button asChild className="mt-8 h-12 rounded-sm px-6"><Link to="/shop">Zurück zum Shop</Link></Button>
+      <div className="mt-8 flex justify-center"><Button asChild className="h-12 rounded-sm px-6"><Link to="/shop">Zurück zum Shop</Link></Button></div>
     </div>
   );
 }
