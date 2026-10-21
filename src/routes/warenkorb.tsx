@@ -163,7 +163,9 @@ function Warenkorb() {
 function Confirmation({ done }: { done: Done }) {
   return (
     <div className="mx-auto max-w-2xl">
-      <FormSuccess kicker="Bestellung bestätigt" message={`Vielen Dank! Ihre Bestellung ${done.orderNumber} ist bei uns eingegangen – Total CHF ${done.total}.–.`} />
+      <div className="rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
+        <FormSuccess kicker="Bestellung bestätigt" message={`Vielen Dank! Ihre Bestellung ${done.orderNumber} ist bei uns eingegangen – Total CHF ${done.total}.–.`} />
+      </div>
       <div className="mt-8 rounded-lg border border-border bg-card p-6 text-left">
         {done.payment === "twint" ? <>
           <h2 className="heading-sub">Bezahlen mit TWINT</h2>
