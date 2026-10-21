@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Offen
+- [x] Warenkorb-Knopf in der Bestätigung repariert, am Handy/Desktop geprüft, Browser-Logo erneuert und Bestellnummern erklärt.
 - [ ] Resend-Versand an audeliab@proton.me einrichten. Blocker: Resend-Verbindung wurde abgelehnt.
 
 ## Erledigt
