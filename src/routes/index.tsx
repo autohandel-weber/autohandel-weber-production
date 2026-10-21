@@ -231,9 +231,9 @@ function Index() {
               Ob Lieferwagen, Personenwagen, Motorrad oder sogar Flugzeug – wir beschriften alles.{" "}
               <a href="#buttons" className="font-semibold text-primary">Neu: Buttons →</a>
             </p>
-            <Button asChild className="mt-8 h-12 rounded-sm px-6"><a href="#kontakt">
+            <Button asChild className="mt-8 h-12 rounded-sm px-6"><Link to="/shop" hash="offerte">
               Offerte verlangen
-            </a></Button>
+            </Link></Button>
             <Button asChild variant="outline" className="ml-3 mt-8 h-12 rounded-sm px-6"><Link to="/shop">
               Zum Aufkleber-Shop / Preise
             </Link></Button>

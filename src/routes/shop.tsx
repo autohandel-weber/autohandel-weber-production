@@ -174,7 +174,7 @@ function Shop() {
               </div>
             ))}
           </div>
-          <div className="rounded-lg border border-border bg-card p-6 md:col-span-2 md:p-8">
+          <div id="offerte" className="scroll-mt-24 rounded-lg border border-border bg-card p-6 md:col-span-2 md:p-8">
             <h3 className="heading-sub mb-6">Offerte für Ihr Motiv</h3>
             <EnquiryForm kind="print" />
           </div>
