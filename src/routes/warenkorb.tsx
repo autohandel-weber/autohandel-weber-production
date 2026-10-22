@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState, type FormEvent } from "react";
+import { useHideOnScroll } from "@/hooks/use-hide-on-scroll";
 import { ArrowLeft, CheckCircle2, Info, LoaderCircle, Minus, Phone, Plus, ShoppingCart, Trash2 } from "lucide-react";
 import { ReliableImage } from "@/components/reliable-image";
 import { Button } from "@/components/ui/button";
@@ -34,6 +35,8 @@ export const Route = createFileRoute("/warenkorb")({
 type Done = { orderNumber: string; total: number };
 
 function Warenkorb() {
+  // Menü verschwindet beim Runterscrollen und kommt beim Hochscrollen zurück.
+  const headerHidden = useHideOnScroll();
   const cart = useCart();
   const send = useServerFn(submitOrder);
   const [pending, setPending] = useState(false);
@@ -60,7 +63,7 @@ function Warenkorb() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur">
+      <header inert={headerHidden} className={`sticky top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur transition-transform duration-300 ease-out ${headerHidden ? "-translate-y-full" : "translate-y-0"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <Link to="/" className="shrink-0" aria-label="Zur Startseite">
             <ReliableImage src={logoSrc} width={1200} height={640} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />

@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
+import { useHideOnScroll } from "@/hooks/use-hide-on-scroll";
 import { toast } from "sonner";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { useCart } from "@/lib/cart";
@@ -149,9 +150,11 @@ function SectionHead({ kicker, title }: { kicker: string; title: string }) {
 }
 
 function Shop() {
+  // Menü verschwindet beim Runterscrollen und kommt beim Hochscrollen zurück.
+  const headerHidden = useHideOnScroll();
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur">
+      <header inert={headerHidden} className={`sticky top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur transition-transform duration-300 ease-out ${headerHidden ? "-translate-y-full" : "translate-y-0"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <Link to="/" className="shrink-0" aria-label="Zur Startseite">
             <ReliableImage src={logoSrc} width={1200} height={640} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useHideOnScroll } from "@/hooks/use-hide-on-scroll";
 import { Menu, Phone, X } from "lucide-react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { ReliableImage } from "@/components/reliable-image";
@@ -105,10 +106,12 @@ const HISTORY = [
 function Index() {
   const { data: { cars } } = useSuspenseQuery(carsQuery);
   const [menuOpen, setMenuOpen] = useState(false);
+  // Menü verschwindet beim Runterscrollen und kommt beim Hochscrollen zurück.
+  const headerHidden = useHideOnScroll() && !menuOpen;
   useReveal();
   return (
     <div className="min-h-screen bg-background pb-16 text-foreground md:pb-0">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur">
+      <header inert={headerHidden} className={`fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-card/90 backdrop-blur transition-transform duration-300 ease-out ${headerHidden ? "-translate-y-full" : "translate-y-0"}`}>
         <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-4 sm:px-6 lg:flex lg:justify-between lg:gap-6">
           <a href="#top" className="shrink-0">
             <ReliableImage src={logo.url} width={1200} height={640} alt="Weber AutoHandel & Beschriftungen" className="h-10 w-auto md:h-12" />
@@ -159,16 +162,16 @@ function Index() {
       <section id="top" className="relative overflow-hidden bg-ink pt-20 text-ink-foreground">
         <div className="absolute -right-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-accent/25 blur-3xl" />
         <div className="absolute -bottom-40 left-1/3 h-[24rem] w-[24rem] rounded-full bg-primary/25 blur-3xl" />
-        <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-[1.2fr_1fr] md:py-28">
-          <div className="min-w-0">
+        <div className="relative mx-auto w-full max-w-7xl px-6 py-16 md:py-24">
+          <div className="mx-auto min-w-0 max-w-4xl text-center">
           <p className="hero-in mb-4 kicker text-accent" style={{ animationDelay: "100ms" }}>Seit 2004 · Reigoldswil BL</p>
           <h1 style={{ animationDelay: "250ms" }} className="hero-in font-display text-5xl min-[380px]:text-6xl leading-[0.9] md:text-8xl lg:text-9xl">
             Autohandel &<br />Beschriftungen
           </h1>
-          <p className="hero-in mt-6 max-w-xl text-lg text-ink-foreground/75" style={{ animationDelay: "450ms" }}>
+          <p className="hero-in mx-auto mt-6 max-w-2xl text-lg text-ink-foreground/75" style={{ animationDelay: "450ms" }}>
             Geprüfte Occasionen mit 12 Monaten Garantie, fairer Ankauf und Fahrzeugbeschriftungen aus einer Hand.
           </p>
-          <div className="hero-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: "600ms" }}>
+          <div className="hero-in mt-8 flex flex-wrap justify-center gap-3" style={{ animationDelay: "600ms" }}>
             <a href="#fahrzeuge" className="rounded-sm bg-primary px-6 py-3 font-semibold text-primary-foreground">
               {cars.length} Fahrzeuge ansehen
             </a>
@@ -179,9 +182,6 @@ function Index() {
               Auto verkaufen
             </a>
           </div>
-          </div>
-          <div className="hero-in" style={{ animationDelay: "500ms" }}>
-            <ReliableImage src={logo.url} width={1200} height={640} alt="Logo Weber AutoHandel & Beschriftungen" className="w-full" />
           </div>
         </div>
       </section>
