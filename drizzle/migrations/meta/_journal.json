@@ -36,6 +36,13 @@
       "when": 1792523497875,
       "tag": "0004_add_enquiry_details",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792692480802,
+      "tag": "0005_allow_open_payment",
+      "breakpoints": true
     }
   ]
 }

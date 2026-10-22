@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { useCart } from "@/lib/cart";
@@ -47,11 +47,62 @@ function CartButton() {
   );
 }
 
-function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
+const field = "w-full rounded-sm border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-primary";
+
+/** Large view of one motif; size and colour must be filled in before it can go into the cart. */
+function MotifDetail({ motif, number, open, onOpenChange, onAdded }: { motif: Motif; number: number; open: boolean; onOpenChange: (open: boolean) => void; onAdded?: (() => void) | undefined }) {
   const { add } = useCart();
-  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [size, setSize] = useState("");
+  const [color, setColor] = useState("");
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!size.trim() || !color.trim()) return;
+    add(motif.id, size.trim(), color.trim());
+    setSize(""); setColor("");
+    onOpenChange(false);
+    onAdded?.();
+    toast.success(`${motif.name} #${number} im Warenkorb`, { action: { label: "Zum Warenkorb", onClick: () => { void navigate({ to: "/warenkorb" }); } } });
+  };
   return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-h-[92dvh] max-w-3xl overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="font-display text-3xl font-normal tracking-wide">{motif.name} <span className="text-muted-foreground">#{number}</span></DialogTitle>
+          <DialogDescription>ab CHF {motif.price}.– pro Stück · definitiver Preis nach Grösse und Farbe</DialogDescription>
+        </DialogHeader>
+        <div className="flex items-center justify-center rounded-sm bg-card p-4">
+          <ReliableImage src={motif.src} width={motif.width} height={motif.height} alt={`${motif.name} Aufkleber gross`} className="h-auto max-h-[55dvh] w-full object-contain" />
+        </div>
+        <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
+          <label className="grid gap-1.5 text-sm font-medium">Wunschgrösse *<input value={size} onChange={(e) => setSize(e.target.value)} required maxLength={80} placeholder="z. B. 30 × 15 cm" className={field} /></label>
+          <label className="grid gap-1.5 text-sm font-medium">Wunschfarbe *<input value={color} onChange={(e) => setColor(e.target.value)} required maxLength={80} placeholder="z. B. Schwarz matt" className={field} /></label>
+          <p className="text-sm text-muted-foreground sm:col-span-2">* muss ausgefüllt werden</p>
+          <Button type="submit" disabled={!size.trim() || !color.trim()} className="h-12 rounded-sm sm:col-span-2"><ShoppingCart /> In den Warenkorb</Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/** A motif picture that opens the large view when clicked. */
+function MotifThumb({ motif, number, className, onAdded }: { motif: Motif; number: number; className: string; onAdded?: (() => void) | undefined }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)} aria-label={`${motif.name} #${number} gross anzeigen`} className={`${className} cursor-zoom-in`}>
+        <ReliableImage src={motif.src} width={motif.width} height={motif.height} loading="lazy" alt={`${motif.name} Aufkleber`} className="max-h-full max-w-full object-contain" />
+      </button>
+      <MotifDetail motif={motif} number={number} open={open} onOpenChange={setOpen} onAdded={onAdded} />
+    </>
+  );
+}
+
+function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<number | null>(null);
+  return (
+    <>
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="mt-4 h-11 w-full rounded-sm"><Grid3x3 /> Alle {motifs.length} Motive ansehen</Button>
@@ -59,17 +110,17 @@ function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
       <DialogContent className="max-h-[90dvh] max-w-5xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="font-display text-4xl font-normal tracking-wide">{title}</DialogTitle>
-          <DialogDescription>{motifs.length} Motive · Preise in CHF pro Stück · Chrom/Gold-Folie + CHF {CHROME_SURCHARGE}</DialogDescription>
+          <DialogDescription>{motifs.length} Motive · Bild anklicken für Grossansicht · Chrom/Gold-Folie + CHF {CHROME_SURCHARGE}</DialogDescription>
         </DialogHeader>
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {motifs.map((m, i) => (
             <li key={i} className="flex flex-col rounded-sm border border-border p-3">
-              <div className="flex aspect-[4/3] items-center justify-center">
+              <button type="button" onClick={() => setSelected(i)} aria-label={`${m.name} #${i + 1} gross anzeigen`} className="flex aspect-[4/3] cursor-zoom-in items-center justify-center">
                 <ReliableImage src={m.src} width={m.width} height={m.height} loading="lazy" alt={`${m.name} Aufkleber`} className="max-h-full max-w-full object-contain" />
-              </div>
+              </button>
               <p className="mt-3 font-semibold">{m.name} <span className="text-muted-foreground">#{i + 1}</span></p>
               <p className="font-display text-2xl text-primary">CHF {m.price}.–</p>
-              <Button type="button" size="sm" className="mt-auto rounded-sm" onClick={() => { add(m.id); setOpen(false); toast.success(`${m.name} #${i + 1} im Warenkorb`, { action: { label: "Zum Warenkorb", onClick: () => { void navigate({ to: "/warenkorb" }); } } }); }}>
+              <Button type="button" size="sm" className="mt-auto rounded-sm" onClick={() => setSelected(i)}>
                 <ShoppingCart /> In den Warenkorb
               </Button>
             </li>
@@ -78,6 +129,10 @@ function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
         <DialogClose asChild><Button asChild variant="outline" className="h-12 rounded-sm"><Link to="/warenkorb"><ShoppingCart /> Zum Warenkorb</Link></Button></DialogClose>
       </DialogContent>
     </Dialog>
+    {selected !== null && motifs[selected] && (
+      <MotifDetail motif={motifs[selected]} number={selected + 1} open onOpenChange={(o) => { if (!o) setSelected(null); }} onAdded={() => setOpen(false)} />
+    )}
+    </>
   );
 }
 
@@ -146,9 +201,7 @@ function Shop() {
                 <article key={item.name} className="flex flex-col rounded-lg border border-border bg-card p-6 shadow-sm">
                   <div className="grid grid-cols-2 gap-3">
                     {item.motifs.slice(0, 4).map((im, i) => (
-                      <div key={i} className="flex aspect-[4/3] items-center justify-center rounded-sm bg-card p-2">
-                        <ReliableImage src={im.src} width={im.width} height={im.height} loading="lazy" alt={`${im.name} Aufkleber`} className="max-h-full max-w-full object-contain" />
-                      </div>
+                      <MotifThumb key={i} motif={im} number={i + 1} className="flex aspect-[4/3] items-center justify-center rounded-sm bg-card p-2" />
                     ))}
                   </div>
                   <h3 className="mt-5 heading-sub">{item.name}</h3>
