@@ -157,11 +157,6 @@ function Index() {
 
       {/* Hero */}
       <section id="top" className="relative overflow-hidden bg-ink pt-20 text-ink-foreground">
-        <div className="hero-photo absolute inset-0 overflow-hidden">
-          <ReliableImage src={garage.url} width={1400} height={571} alt="Garage Weber an der Seewenstrasse 2 in Reigoldswil" className="h-full w-full object-cover object-center opacity-35" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/65 to-ink/95" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-ink/50" />
         <div className="absolute -right-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-accent/25 blur-3xl" />
         <div className="absolute -bottom-40 left-1/3 h-[24rem] w-[24rem] rounded-full bg-primary/25 blur-3xl" />
         <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-[1.2fr_1fr] md:py-28">
@@ -317,7 +312,23 @@ function Index() {
             <p className="mt-6 body-text text-foreground">
               Wir freuen uns, auch Sie zu unseren Kunden zählen zu dürfen!
             </p>
-            <h3 className="mt-14 heading-sub">Geschichte</h3>
+          </div>
+          <figure className="mx-auto w-full max-w-sm md:max-w-none">
+            <ReliableImage
+              src={patrick.url}
+              width={768}
+              height={1024}
+              alt="Patrick Weber, Inhaber von Weber Autohandel & Beschriftungen"
+              loading="lazy"
+              className="w-full rounded-md border border-border bg-card shadow-sm"
+            />
+          </figure>
+        </div>
+
+        {/* Firmengeschichte – auf dem Handy unterhalb der Geschichte das Garagenbild */}
+        <div className="history mt-16 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-12">
+          <div className="min-w-0">
+            <h3 className="heading-sub">Geschichte</h3>
             <ol className="mt-6 space-y-5">
               {HISTORY.map(([year, text]) => (
                 <li
@@ -331,26 +342,27 @@ function Index() {
                 </li>
               ))}
             </ol>
-            <div className="mt-10">
-              <p className="body-text text-muted-foreground">
-                Mit bestem Dank für Ihr Vertrauen in unsere Firma
-              </p>
-              <p className="mt-3 font-display text-2xl text-primary">
-                Weber Autohandel & Beschriftungen
-              </p>
-              <p className="mt-1 body-text text-foreground">Patrick Weber</p>
-            </div>
           </div>
-          <figure className="mx-auto w-full max-w-sm md:max-w-none">
+          <figure className="mx-auto w-full max-w-sm lg:max-w-none">
             <ReliableImage
-              src={patrick.url}
-              width={768}
-              height={1024}
-              alt="Patrick Weber, Inhaber von Weber Autohandel & Beschriftungen"
+              src={garage.url}
+              width={1400}
+              height={571}
+              alt="Garage Weber an der Seewenstrasse 2 in Reigoldswil"
               loading="lazy"
               className="w-full rounded-md border border-border bg-card shadow-sm"
             />
           </figure>
+        </div>
+
+        <div className="mt-10">
+          <p className="body-text text-muted-foreground">
+            Mit bestem Dank für Ihr Vertrauen in unsere Firma
+          </p>
+          <p className="mt-3 font-display text-2xl text-primary">
+            Weber Autohandel & Beschriftungen
+          </p>
+          <p className="mt-1 body-text text-foreground">Patrick Weber</p>
         </div>
         <div className="mt-16">
           <p className="mb-2 kicker text-primary">Partner</p>
@@ -445,6 +457,7 @@ const REVEAL_SELECTOR = [
   "#beschriftungen li",
   "#beschriftungen figure",
   "#ueber-uns .about-copy > *",
+  "#ueber-uns .history > *",
   "#ueber-uns figure",
   "#ueber-uns li",
   "#ueber-uns a",
