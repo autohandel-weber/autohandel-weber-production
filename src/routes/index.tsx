@@ -18,6 +18,7 @@ import b8Src from "@/assets/images/beschriftung-8.webp";
 import button59Src from "@/assets/images/button-59mm.webp";
 import buttonsMotiveSrc from "@/assets/images/buttons-motive.webp";
 import patrickSrc from "@/assets/images/patrick-weber.webp";
+import garageSrc from "@/assets/images/garage.webp";
 
 const logo = { url: logoSrc };
 const b1 = { url: b1Src };
@@ -31,6 +32,8 @@ const b8 = { url: b8Src };
 const button59 = { url: button59Src };
 const buttonsMotive = { url: buttonsMotiveSrc };
 const patrick = { url: patrickSrc };
+const garage = { url: garageSrc };
+
 
 const gallery = [
   { url: b1.url, width: 1386, height: 1158, alt: "Heckbeschriftung VW Caddy Bistro Kuhblick" },
@@ -154,6 +157,11 @@ function Index() {
 
       {/* Hero */}
       <section id="top" className="relative overflow-hidden bg-ink pt-20 text-ink-foreground">
+        <div className="hero-photo absolute inset-0 overflow-hidden">
+          <ReliableImage src={garage.url} width={1400} height={571} alt="Garage Weber an der Seewenstrasse 2 in Reigoldswil" className="h-full w-full object-cover object-center opacity-35" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/65 to-ink/95" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-ink/50" />
         <div className="absolute -right-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-accent/25 blur-3xl" />
         <div className="absolute -bottom-40 left-1/3 h-[24rem] w-[24rem] rounded-full bg-primary/25 blur-3xl" />
         <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-[1.2fr_1fr] md:py-28">
