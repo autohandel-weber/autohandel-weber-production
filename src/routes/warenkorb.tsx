@@ -119,15 +119,15 @@ function Warenkorb() {
                             <Button type="button" variant="ghost" size="icon" className="ml-1 h-8 w-8" aria-label={`${item.name} entfernen`} onClick={() => cart.remove(index)}><Trash2 /></Button>
                           </div>
                         </div>
-                        <p className="col-span-2 text-right font-display text-2xl text-primary sm:col-span-1">CHF {item.sum}.–</p>
+                        <p className="col-span-2 text-right font-display text-2xl text-primary sm:col-span-1">ab CHF {item.sum}.–</p>
                       </li>
                     );
                   })}
                 </ul>
                 <dl className="mt-6 grid gap-2 rounded-lg border border-border bg-card p-6 body-text">
-                  <div className="flex justify-between"><dt className="text-muted-foreground">Zwischensumme</dt><dd>CHF {priced.subtotal}.–</dd></div>
+                  <div className="flex justify-between"><dt className="text-muted-foreground">Zwischensumme</dt><dd>ab CHF {priced.subtotal}.–</dd></div>
                   <div className="flex justify-between"><dt className="text-muted-foreground">Versand per Post</dt><dd>CHF {priced.shipping}.–</dd></div>
-                  <div className="flex justify-between border-t border-border pt-2 font-display text-3xl text-primary"><dt>Richtpreis</dt><dd>CHF {priced.total}.–</dd></div>
+                  <div className="flex justify-between border-t border-border pt-2 font-display text-3xl text-primary"><dt>Richtpreis</dt><dd>ab CHF {priced.total}.–</dd></div>
                 </dl>
                 <PriceNote />
               </section>
