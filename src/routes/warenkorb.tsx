@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState, type FormEvent } from "react";
-import { ArrowLeft, CheckCircle2, LoaderCircle, Minus, Phone, Plus, ShoppingCart, Trash2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Info, LoaderCircle, Minus, Phone, Plus, ShoppingCart, Trash2 } from "lucide-react";
 import { ReliableImage } from "@/components/reliable-image";
 import { Button } from "@/components/ui/button";
 import { FormError, FormSuccess } from "@/components/form-feedback";
 import logoSrc from "@/assets/images/logo-weber.webp";
 import { useCart } from "@/lib/cart";
-import { CHROME_CHF, orderSchema, PAYMENT_METHODS, priceCart } from "@/lib/order-schema";
+import { CHROME_CHF, orderSchema, priceCart } from "@/lib/order-schema";
 import { SHOP } from "@/lib/shop-data";
 import { submitOrder } from "@/lib/orders.functions";
 
@@ -20,18 +20,18 @@ export const Route = createFileRoute("/warenkorb")({
   head: () => ({
     meta: [
       { title: "Warenkorb – Weber Aufkleber-Shop" },
-      { name: "description", content: "Ihr Warenkorb im Aufkleber-Shop von Weber Beschriftungen. Bezahlung per TWINT oder Einzahlungsschein." },
+      { name: "description", content: "Ihr Warenkorb im Aufkleber-Shop von Weber Beschriftungen. Den definitiven Preis teilen wir Ihnen nach Grösse und Farbe mit." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { property: "og:title", content: "Warenkorb – Weber Aufkleber-Shop" },
-      { property: "og:description", content: "Aufkleber bestellen und per TWINT oder Einzahlungsschein bezahlen." },
+      { property: "og:description", content: "Aufkleber in Wunschgrösse und Wunschfarbe bestellen." },
       { name: "robots", content: "noindex" },
     ],
   }),
   component: Warenkorb,
 });
 
-type Done = { orderNumber: string; total: number; payment: "twint" | "einzahlungsschein" };
+type Done = { orderNumber: string; total: number };
 
 function Warenkorb() {
   const cart = useCart();
@@ -46,7 +46,7 @@ function Warenkorb() {
     if (pending) return;
     const f = new FormData(event.currentTarget);
     const read = (n: string) => String(f.get(n) ?? "");
-    const order = { name: read("name"), email: read("email"), phone: read("phone"), street: read("street"), zipCity: read("zipCity"), payment: read("payment"), note: read("note"), website: read("website"), lines: cart.lines };
+    const order = { name: read("name"), email: read("email"), phone: read("phone"), street: read("street"), zipCity: read("zipCity"), note: read("note"), website: read("website"), lines: cart.lines };
     const parsed = orderSchema.safeParse(order);
     if (!parsed.success) { setError(parsed.error.issues[0]?.message ?? "Bitte prüfen Sie Ihre Angaben."); return; }
     setPending(true); setError(null);
@@ -103,7 +103,11 @@ function Warenkorb() {
                         </div>
                         <div className="min-w-0">
                           <p className="font-semibold">{item.name} <span className="text-muted-foreground">#{number}</span></p>
-                          <p className="text-sm text-muted-foreground">{item.category} · CHF {item.unit}.– / Stk.</p>
+                          <p className="text-sm text-muted-foreground">{item.category} · ab CHF {item.unit}.– / Stk.</p>
+                          <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                            <label className="grid gap-1 text-sm font-medium">Wunschgrösse *<input value={item.size} required maxLength={80} onChange={(e) => cart.update(index, { size: e.target.value })} className={input} /></label>
+                            <label className="grid gap-1 text-sm font-medium">Wunschfarbe *<input value={item.color} required maxLength={80} onChange={(e) => cart.update(index, { color: e.target.value })} className={input} /></label>
+                          </div>
                           <label className="mt-2 flex items-center gap-2 text-sm">
                             <input type="checkbox" checked={item.chrome} onChange={(e) => cart.update(index, { chrome: e.target.checked })} className="h-4 w-4 accent-primary" />
                             Chrom- oder Goldfolie (+ CHF {CHROME_CHF}.–)
@@ -123,8 +127,9 @@ function Warenkorb() {
                 <dl className="mt-6 grid gap-2 rounded-lg border border-border bg-card p-6 body-text">
                   <div className="flex justify-between"><dt className="text-muted-foreground">Zwischensumme</dt><dd>CHF {priced.subtotal}.–</dd></div>
                   <div className="flex justify-between"><dt className="text-muted-foreground">Versand per Post</dt><dd>CHF {priced.shipping}.–</dd></div>
-                  <div className="flex justify-between border-t border-border pt-2 font-display text-3xl text-primary"><dt>Total</dt><dd>CHF {priced.total}.–</dd></div>
+                  <div className="flex justify-between border-t border-border pt-2 font-display text-3xl text-primary"><dt>Richtpreis</dt><dd>CHF {priced.total}.–</dd></div>
                 </dl>
+                <PriceNote />
               </section>
 
               <section aria-label="Bestellung abschliessen" className="rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
@@ -136,19 +141,10 @@ function Warenkorb() {
                   <label className="grid gap-1.5 text-sm font-medium">Telefon<input name="phone" type="tel" autoComplete="tel" maxLength={40} className={input} /></label>
                   <label className="grid gap-1.5 text-sm font-medium">Strasse und Nr. *<input name="street" autoComplete="street-address" required maxLength={200} className={input} /></label>
                   <label className="grid gap-1.5 text-sm font-medium">PLZ und Ort *<input name="zipCity" autoComplete="postal-code" required maxLength={120} className={input} /></label>
-                  <fieldset className="grid gap-2">
-                    <legend className="mb-1.5 text-sm font-medium">Zahlungsart *</legend>
-                    {Object.entries(PAYMENT_METHODS).map(([value, label], i) => (
-                      <label key={value} className="flex cursor-pointer items-center gap-3 rounded-sm border border-input px-4 py-3 has-[:checked]:border-primary">
-                        <input type="radio" name="payment" value={value} defaultChecked={i === 0} className="h-4 w-4 accent-primary" />
-                        <span className="font-semibold">{label}</span>
-                      </label>
-                    ))}
-                  </fieldset>
-                  <label className="grid gap-1.5 text-sm font-medium">Bemerkungen (z. B. Farbe, Grösse)<textarea name="note" maxLength={2000} rows={3} className={input} /></label>
-                  <Button type="submit" disabled={pending} className="h-12 rounded-sm">{pending ? <LoaderCircle className="animate-spin" /> : <CheckCircle2 />}{pending ? "Wird gesendet …" : `Verbindlich bestellen · CHF ${priced.total}.–`}</Button>
+                  <label className="grid gap-1.5 text-sm font-medium">Bemerkungen<textarea name="note" maxLength={2000} rows={3} className={input} /></label>
+                  <Button type="submit" disabled={pending} className="h-12 rounded-sm">{pending ? <LoaderCircle className="animate-spin" /> : <CheckCircle2 />}{pending ? "Wird gesendet …" : "Bestellung anfragen"}</Button>
                   {error && <FormError message={error} />}
-                  <p className="text-sm text-muted-foreground">Die Ware wird nach Zahlungseingang per Post verschickt.</p>
+                  <p className="text-sm text-muted-foreground">Wir melden uns bei Ihnen mit dem definitiven Preis. Erst danach wird die Bestellung verbindlich.</p>
                 </form>
               </section>
             </div>
@@ -164,19 +160,19 @@ function Confirmation({ done }: { done: Done }) {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
-        <FormSuccess kicker="Bestellung bestätigt" message={`Vielen Dank! Ihre Bestellung ${done.orderNumber} ist bei uns eingegangen – Total CHF ${done.total}.–.`} />
+        <FormSuccess kicker="Bestellung bestätigt" message={`Vielen Dank! Ihre Bestellung ${done.orderNumber} ist bei uns eingegangen. Wir melden uns mit dem definitiven Preis für Ihre gewählte Grösse und Farbe.`} />
       </div>
-      <div className="mt-8 rounded-lg border border-border bg-card p-6 text-left">
-        {done.payment === "twint" ? <>
-          <h2 className="heading-sub">Bezahlen mit TWINT</h2>
-          <p className="mt-3 body-text text-muted-foreground">Bitte bezahlen Sie CHF {done.total}.– per TWINT und geben Sie die Bestellnummer <strong className="text-foreground">{done.orderNumber}</strong> als Mitteilung an.</p>
-          <p className="mt-3 rounded-sm bg-muted p-4 text-sm text-muted-foreground">Der TWINT-QR-Code wird hier in Kürze angezeigt. Bis dahin melden wir uns mit den Zahlungsangaben bei Ihnen.</p>
-        </> : <>
-          <h2 className="heading-sub">Bezahlen per Einzahlungsschein</h2>
-          <p className="mt-3 body-text text-muted-foreground">Wir senden Ihnen die Rechnung mit Einzahlungsschein über CHF {done.total}.–. Sobald die Zahlung eingegangen ist, verschicken wir Ihre Aufkleber per Post.</p>
-        </>}
-      </div>
+      <PriceNote />
       <div className="mt-8 flex justify-center"><Button asChild className="h-12 rounded-sm px-6"><Link to="/shop">Zurück zum Shop</Link></Button></div>
     </div>
+  );
+}
+
+function PriceNote() {
+  return (
+    <p className="mt-6 flex gap-3 rounded-lg border border-primary/40 bg-card p-5 body-text">
+      <Info className="mt-1 h-5 w-5 shrink-0 text-primary" />
+      <span>Die angezeigten Preise sind Richtpreise. Wir melden uns bei Ihnen mit dem <strong>definitiven Preis</strong>, abhängig von der gewählten Grösse und Farbe.</span>
+    </p>
   );
 }
