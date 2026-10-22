@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { orderSchema, priceCart } from "./order-schema";
 
-type Result = { ok: true; orderNumber: string; total: number; payment: "twint" | "einzahlungsschein" } | { ok: false; message: string };
+type Result = { ok: true; orderNumber: string; total: number; payment: "offen" } | { ok: false; message: string };
 
 export const submitOrder = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => input)

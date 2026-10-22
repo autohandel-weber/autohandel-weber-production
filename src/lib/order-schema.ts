@@ -11,6 +11,8 @@ export const cartLineSchema = z.object({
   id: z.string().max(60),
   qty: z.number().int().min(1).max(50),
   chrome: z.boolean(),
+  size: z.string().trim().min(1, "Bitte geben Sie die Wunschgrösse an.").max(80),
+  color: z.string().trim().min(1, "Bitte geben Sie die Wunschfarbe an.").max(80),
 });
 export type CartLine = z.infer<typeof cartLineSchema>;
 
@@ -21,7 +23,8 @@ export const orderSchema = z.object({
   phone: text(40).regex(/^[+\d\s()./-]*$/, "Bitte prüfen Sie Ihre Telefonnummer."),
   street: text(200).min(1, "Bitte geben Sie Strasse und Hausnummer an."),
   zipCity: text(120).min(4, "Bitte geben Sie PLZ und Ort an."),
-  payment: z.enum(["twint", "einzahlungsschein"], { message: "Bitte wählen Sie eine Zahlungsart." }),
+  /** Zahlung vorerst pausiert: der definitive Preis wird nach Grösse/Farbe mitgeteilt. */
+  payment: z.literal("offen").default("offen"),
   note: text(2000),
   website: z.literal(""),
   lines: z.array(cartLineSchema).min(1, "Ihr Warenkorb ist leer.").max(100),
@@ -34,7 +37,7 @@ export function priceCart(lines: CartLine[]) {
     const motif = findMotif(line.id);
     if (!motif) return null;
     const unit = motif.price + (line.chrome ? CHROME_CHF : 0);
-    items.push({ ...motif, qty: line.qty, chrome: line.chrome, unit, sum: unit * line.qty });
+    items.push({ ...motif, qty: line.qty, chrome: line.chrome, size: line.size, color: line.color, unit, sum: unit * line.qty });
   }
   const subtotal = items.reduce((s, i) => s + i.sum, 0);
   const shipping = items.length ? SHIPPING_CHF : 0;
