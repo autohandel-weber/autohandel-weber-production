@@ -162,13 +162,13 @@ function Index() {
       <section id="top" className="relative overflow-hidden bg-ink pt-20 text-ink-foreground">
         <div className="absolute -right-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-accent/25 blur-3xl" />
         <div className="absolute -bottom-40 left-1/3 h-[24rem] w-[24rem] rounded-full bg-primary/25 blur-3xl" />
-        <div className="relative mx-auto w-full max-w-7xl px-6 py-20 md:py-28">
+        <div className="relative mx-auto w-full max-w-7xl px-6 py-16 md:py-24">
           <div className="min-w-0">
           <p className="hero-in mb-4 kicker text-accent" style={{ animationDelay: "100ms" }}>Seit 2004 · Reigoldswil BL</p>
           <h1 style={{ animationDelay: "250ms" }} className="hero-in font-display text-5xl min-[380px]:text-6xl leading-[0.9] md:text-8xl lg:text-9xl">
             Autohandel &<br />Beschriftungen
           </h1>
-          <p className="hero-in mt-6 max-w-xl text-lg text-ink-foreground/75" style={{ animationDelay: "450ms" }}>
+          <p className="hero-in mt-6 max-w-2xl text-lg text-ink-foreground/75" style={{ animationDelay: "450ms" }}>
             Geprüfte Occasionen mit 12 Monaten Garantie, fairer Ankauf und Fahrzeugbeschriftungen aus einer Hand.
           </p>
           <div className="hero-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: "600ms" }}>
