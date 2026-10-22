@@ -50,7 +50,7 @@ function CartButton() {
 const field = "w-full rounded-sm border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-primary";
 
 /** Large view of one motif; size and colour must be filled in before it can go into the cart. */
-function MotifDetail({ motif, number, open, onOpenChange, onAdded }: { motif: Motif; number: number; open: boolean; onOpenChange: (open: boolean) => void; onAdded?: () => void }) {
+function MotifDetail({ motif, number, open, onOpenChange, onAdded }: { motif: Motif; number: number; open: boolean; onOpenChange: (open: boolean) => void; onAdded?: (() => void) | undefined }) {
   const { add } = useCart();
   const navigate = useNavigate();
   const [size, setSize] = useState("");
@@ -86,7 +86,7 @@ function MotifDetail({ motif, number, open, onOpenChange, onAdded }: { motif: Mo
 }
 
 /** A motif picture that opens the large view when clicked. */
-function MotifThumb({ motif, number, className, onAdded }: { motif: Motif; number: number; className: string; onAdded?: () => void }) {
+function MotifThumb({ motif, number, className, onAdded }: { motif: Motif; number: number; className: string; onAdded?: (() => void) | undefined }) {
   const [open, setOpen] = useState(false);
   return (
     <>
