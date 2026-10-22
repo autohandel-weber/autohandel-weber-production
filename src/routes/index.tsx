@@ -18,6 +18,7 @@ import b8Src from "@/assets/images/beschriftung-8.webp";
 import button59Src from "@/assets/images/button-59mm.webp";
 import buttonsMotiveSrc from "@/assets/images/buttons-motive.webp";
 import patrickSrc from "@/assets/images/patrick-weber.webp";
+import garageSrc from "@/assets/images/garage.webp";
 
 const logo = { url: logoSrc };
 const b1 = { url: b1Src };
@@ -31,6 +32,8 @@ const b8 = { url: b8Src };
 const button59 = { url: button59Src };
 const buttonsMotive = { url: buttonsMotiveSrc };
 const patrick = { url: patrickSrc };
+const garage = { url: garageSrc };
+
 
 const gallery = [
   { url: b1.url, width: 1386, height: 1158, alt: "Heckbeschriftung VW Caddy Bistro Kuhblick" },
