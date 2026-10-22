@@ -8,7 +8,7 @@ import { ReliableImage } from "@/components/reliable-image";
 import { Button } from "@/components/ui/button";
 import logoSrc from "@/assets/images/logo-weber.webp";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { CHROME_SURCHARGE, DIGITALDRUCK, FOLIENFARBEN, SHIPPING, SHOP, priceRange, type Motif } from "@/lib/shop-data";
+import { CHROME_SURCHARGE, DIGITALDRUCK, FOLIENFARBEN, SHIPPING, SHOP, priceFrom, type Motif } from "@/lib/shop-data";
 
 const TEL = "079 422 55 41";
 const TEL_HREF = "tel:+41794225541";
@@ -119,7 +119,7 @@ function MotifDialog({ title, motifs }: { title: string; motifs: Motif[] }) {
                 <ReliableImage src={m.src} width={m.width} height={m.height} loading="lazy" alt={`${m.name} Aufkleber`} className="max-h-full max-w-full object-contain" />
               </button>
               <p className="mt-3 font-semibold">{m.name} <span className="text-muted-foreground">#{i + 1}</span></p>
-              <p className="font-display text-2xl text-primary">CHF {m.price}.–</p>
+              <p className="font-display text-2xl text-primary">ab CHF {m.price}.–</p>
               <Button type="button" size="sm" className="mt-auto rounded-sm" onClick={() => setSelected(i)}>
                 <ShoppingCart /> In den Warenkorb
               </Button>
@@ -206,7 +206,7 @@ function Shop() {
                   </div>
                   <h3 className="mt-5 heading-sub">{item.name}</h3>
                   <p className="mt-1 body-text text-muted-foreground">{item.note}</p>
-                  <p className="mt-auto pt-4 font-display text-3xl text-primary">CHF {priceRange(item.motifs)} <span className="font-sans text-sm text-muted-foreground">/ Stk.</span></p>
+                  <p className="mt-auto pt-4 font-display text-3xl text-primary">ab CHF {priceFrom(item.motifs)}.– <span className="font-sans text-sm text-muted-foreground">/ Stk.</span></p>
                   <MotifDialog title={item.name} motifs={item.motifs} />
                 </article>
               ))}

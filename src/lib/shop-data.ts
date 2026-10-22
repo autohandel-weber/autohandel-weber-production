@@ -12,13 +12,8 @@ const raw = items as Record<string, RawItem[]>;
 const motifs = (key: string): Motif[] =>
   (raw[key] ?? []).map((i, index) => ({ id: `${key}:${index + 1}`, name: i.name, price: i.price, src: img(i.file), width: i.w, height: i.h }));
 
-/** "30.–" oder "30.– bis 40.–" aus allen Motiven einer Kategorie. */
-export function priceRange(list: Motif[]): string {
-  const prices = list.map((m) => m.price);
-  const min = Math.min(...prices);
-  const max = Math.max(...prices);
-  return min === max ? `${min}.–` : `${min}.– bis ${max}.–`;
-}
+/** Tiefster Preis einer Kategorie – die Anzeige lautet "ab CHF X.– pro Stück". */
+export const priceFrom = (list: Motif[]): number => Math.min(...list.map((m) => m.price));
 
 const cat = (name: string, key: string, note: string) => ({ name, note, motifs: motifs(key) });
 

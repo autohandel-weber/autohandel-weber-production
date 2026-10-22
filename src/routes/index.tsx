@@ -274,7 +274,7 @@ function Index() {
               <p className="mt-4 text-muted-foreground">
                 Bedruckt mit Ihrem Motiv, 59 mm mit Clip – für Vereine, Events, Werbung oder als Geschenk.
               </p>
-              <p className="mt-6 font-display text-3xl text-primary">CHF 1.– bis 7.– / Stk.</p>
+              <p className="mt-6 font-display text-3xl text-primary">ab CHF 1.– / Stk.</p>
               <p className="text-sm text-muted-foreground">Je nach Auflage und Bildbearbeitung, exkl. Versand.</p>
               <Button asChild className="mt-6 h-12 rounded-sm px-6"><a href="#kontakt">
                 Buttons anfragen
