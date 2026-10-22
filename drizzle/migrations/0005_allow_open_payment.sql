@@ -1,0 +1,2 @@
+ALTER TABLE public.shop_orders DROP CONSTRAINT shop_orders_payment_method_check;
+ALTER TABLE public.shop_orders ADD CONSTRAINT shop_orders_payment_method_check CHECK (payment_method = ANY (ARRAY['twint'::text, 'einzahlungsschein'::text, 'offen'::text]));
