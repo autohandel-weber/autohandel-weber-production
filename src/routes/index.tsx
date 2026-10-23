@@ -410,7 +410,16 @@ function Index() {
             <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="flex items-center gap-3 rounded-sm bg-primary px-6 py-4 font-semibold text-primary-foreground">
               <Phone className="h-6 w-6 shrink-0" /> Anrufen: <span className="font-display text-3xl">{TEL}</span>
             </a>
-            <a href={`mailto:${EMAIL}`} className="block text-ink-foreground/70 hover:text-ink-foreground">{EMAIL}</a>
+            <a
+              href={WHATSAPP}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Per WhatsApp schreiben: ${WHATSAPP_NO}`}
+              className="flex items-center gap-3 rounded-sm bg-whatsapp px-6 py-3 font-semibold text-whatsapp-foreground"
+            >
+              <WhatsAppIcon className="h-5 w-5 shrink-0" /> oder WhatsApp schreiben
+            </a>
+            <a href={`mailto:${EMAIL}`} className="block pt-1 text-ink-foreground/70 hover:text-ink-foreground">{EMAIL}</a>
           </div>
         </div>
         <div className="mx-auto max-w-7xl px-6 pb-24">
