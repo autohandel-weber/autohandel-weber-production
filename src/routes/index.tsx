@@ -432,17 +432,6 @@ function Index() {
         </p>
       </section>
 
-      {/* WhatsApp-Button unten rechts */}
-      <a
-        href={WHATSAPP}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Per WhatsApp schreiben: ${WHATSAPP_NO}`}
-        title={`WhatsApp: ${WHATSAPP_NO}`}
-        className="fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-lg transition-transform hover:scale-110 md:bottom-6 md:right-6"
-      >
-        <WhatsAppIcon className="h-8 w-8" />
-      </a>
     </div>
   );
 }
