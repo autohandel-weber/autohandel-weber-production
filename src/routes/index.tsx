@@ -268,6 +268,11 @@ function Index() {
               </figure>
             ))}
           </div>
+          <div className="mt-6 text-center">
+            <Button type="button" variant="outline" className="h-12 rounded-sm px-8" onClick={() => setShowAllGallery((v) => !v)}>
+              {showAllGallery ? "Weniger anzeigen" : `Alle ${gallery.length} Fotos anzeigen`}
+            </Button>
+          </div>
 
           <div id="buttons" className="mt-20 grid items-center gap-10 rounded-xl bg-card p-8 shadow-sm md:grid-cols-2 md:p-12">
             <div className="grid grid-cols-2 gap-4">
@@ -282,9 +287,11 @@ function Index() {
               </p>
               <p className="mt-6 font-display text-3xl text-primary">ab CHF 1.– / Stk.</p>
               <p className="text-sm text-muted-foreground">Je nach Auflage und Bildbearbeitung, exkl. Versand.</p>
-              <Button asChild className="mt-6 h-12 rounded-sm px-6"><a href="#kontakt">
-                Buttons anfragen
-              </a></Button>
+              <div className="mt-6 text-center">
+                <Button asChild className="h-12 rounded-sm px-6"><a href="#kontakt">
+                  Buttons anfragen
+                </a></Button>
+              </div>
             </div>
           </div>
         </div>
@@ -415,15 +422,6 @@ function Index() {
           © {new Date().getFullYear()} Weber Autohandel & Beschriftungen
         </p>
       </section>
-
-      {/* Auf dem Handy immer sichtbar: ein Tipp, und die Telefon-App öffnet sich */}
-      <a
-        href={TEL_HREF}
-        aria-label={`Anrufen: ${TEL}`}
-        className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center gap-2 bg-primary px-6 py-4 font-semibold text-primary-foreground md:hidden"
-      >
-        <Phone className="h-5 w-5" /> Anrufen: {TEL}
-      </a>
 
       {/* WhatsApp-Button unten rechts */}
       <a
