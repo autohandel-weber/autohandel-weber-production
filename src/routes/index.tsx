@@ -106,6 +106,7 @@ const HISTORY = [
 function Index() {
   const { data: { cars } } = useSuspenseQuery(carsQuery);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showAllGallery, setShowAllGallery] = useState(false);
   // Menü verschwindet beim Runterscrollen und kommt beim Hochscrollen zurück.
   const headerHidden = useHideOnScroll() && !menuOpen;
   useReveal();
@@ -191,8 +192,8 @@ function Index() {
       <section id="fahrzeuge" className="mx-auto max-w-7xl scroll-mt-20 px-6 py-24">
         <SectionHead kicker="Occasionen" title="Unsere Fahrzeuge" />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {cars.slice(0, 6).map((c) => (
-            <a key={c.url} href={c.url} target="_blank" rel="noopener noreferrer" className="group overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-primary">
+          {cars.slice(0, 6).map((c, i) => (
+            <a key={c.url} href={c.url} target="_blank" rel="noopener noreferrer" className={`group overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-primary${i >= 4 ? " hidden sm:block" : ""}`}>
               <div className="aspect-[4/3] overflow-hidden bg-muted">
                 <ReliableImage src={c.img} width={800} height={600} referrerPolicy="no-referrer" alt={c.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               </div>
@@ -234,12 +235,14 @@ function Index() {
               Ob Lieferwagen, Personenwagen, Motorrad oder sogar Flugzeug – wir beschriften alles.{" "}
               <a href="#buttons" className="font-semibold text-primary">Neu: Buttons →</a>
             </p>
-            <Button asChild className="mt-8 h-12 rounded-sm px-6"><Link to="/shop" hash="offerte">
-              Offerte verlangen
-            </Link></Button>
-            <Button asChild variant="outline" className="ml-3 mt-8 h-12 rounded-sm px-6"><Link to="/shop">
-              Zum Aufkleber-Shop / Preise
-            </Link></Button>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Button asChild className="h-12 rounded-sm px-6"><Link to="/shop" hash="offerte">
+                Offerte verlangen
+              </Link></Button>
+              <Button asChild variant="outline" className="h-12 rounded-sm px-6"><Link to="/shop">
+                Zum Aufkleber-Shop / Preise
+              </Link></Button>
+            </div>
           </div>
           <ul className="grid gap-4 self-center">
             {[
@@ -258,12 +261,17 @@ function Index() {
 
         <div className="mx-auto max-w-7xl px-6 pb-24">
           <p className="mb-2 kicker text-primary">Referenzen</p>
-          <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-            {gallery.map((g) => (
+          <div className="columns-1 gap-4 sm:columns-2 lg:columns-4">
+            {(showAllGallery ? gallery : gallery.slice(0, 4)).map((g) => (
               <figure key={g.url} className="mb-4 break-inside-avoid overflow-hidden rounded-md bg-card shadow-sm">
                 <ReliableImage src={g.url} width={g.width} height={g.height} alt={g.alt} loading="lazy" className="w-full transition-transform duration-500 hover:scale-105" />
               </figure>
             ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Button type="button" variant="outline" className="h-12 rounded-sm px-8" onClick={() => setShowAllGallery((v) => !v)}>
+              {showAllGallery ? "Weniger anzeigen" : `Alle ${gallery.length} Fotos anzeigen`}
+            </Button>
           </div>
 
           <div id="buttons" className="mt-20 grid items-center gap-10 rounded-xl bg-card p-8 shadow-sm md:grid-cols-2 md:p-12">
@@ -279,9 +287,11 @@ function Index() {
               </p>
               <p className="mt-6 font-display text-3xl text-primary">ab CHF 1.– / Stk.</p>
               <p className="text-sm text-muted-foreground">Je nach Auflage und Bildbearbeitung, exkl. Versand.</p>
-              <Button asChild className="mt-6 h-12 rounded-sm px-6"><a href="#kontakt">
-                Buttons anfragen
-              </a></Button>
+              <div className="mt-6 text-center">
+                <Button asChild className="h-12 rounded-sm px-6"><a href="#kontakt">
+                  Buttons anfragen
+                </a></Button>
+              </div>
             </div>
           </div>
         </div>
@@ -412,15 +422,6 @@ function Index() {
           © {new Date().getFullYear()} Weber Autohandel & Beschriftungen
         </p>
       </section>
-
-      {/* Auf dem Handy immer sichtbar: ein Tipp, und die Telefon-App öffnet sich */}
-      <a
-        href={TEL_HREF}
-        aria-label={`Anrufen: ${TEL}`}
-        className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center gap-2 bg-primary px-6 py-4 font-semibold text-primary-foreground md:hidden"
-      >
-        <Phone className="h-5 w-5" /> Anrufen: {TEL}
-      </a>
 
       {/* WhatsApp-Button unten rechts */}
       <a
