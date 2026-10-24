@@ -326,8 +326,8 @@ function Index() {
           <figure className="mx-auto w-full max-w-sm md:max-w-none">
             <ReliableImage
               src={patrick.url}
-              width={768}
-              height={1024}
+              width={800}
+              height={1000}
               alt="Patrick Weber, Inhaber von Weber Autohandel & Beschriftungen"
               loading="lazy"
               className="w-full rounded-md border border-border bg-card shadow-sm"
