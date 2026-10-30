@@ -1,7 +1,7 @@
 # Roadmap
 
 ## Offen
-- [ ] Startseite mit drei Angebotsbereichen, vier Autos und Restanzahl, Garage/Pneuservice, zwei Beschriftungsfotos; Buttons in den Shop und Kontaktaktionen dezenter gestalten und prüfen.
+- [x] Startseite mit drei Angebotsbereichen, vier Autos und Restanzahl, Garage/Pneuservice, zwei Beschriftungsfotos; Buttons in den Shop und dezente Kontaktaktionen; bei 320/390/916/1280 px und mit acht Tests geprüft.
 - [x] Warenkorb-Knopf in der Bestätigung repariert, am Handy/Desktop geprüft, Browser-Logo erneuert und Bestellnummern erklärt.
 - [ ] Resend-Versand an audeliab@proton.me einrichten. Blocker: Resend-Verbindung wurde abgelehnt.
 
