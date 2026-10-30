@@ -7,23 +7,25 @@ import { useCart } from "@/lib/cart";
 import { ArrowLeft, Grid3x3, ShoppingCart, Info, Palette, Phone, Printer, Truck } from "lucide-react";
 import { ReliableImage } from "@/components/reliable-image";
 import { Button } from "@/components/ui/button";
+import { ContactActions } from "@/components/contact-actions";
+import button59Src from "@/assets/images/button-59mm.webp";
+import buttonsMotiveSrc from "@/assets/images/buttons-motive.webp";
 import logoSrc from "@/assets/images/logo-weber.webp";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { CHROME_SURCHARGE, DIGITALDRUCK, FOLIENFARBEN, SHIPPING, SHOP, priceFrom, type Motif } from "@/lib/shop-data";
 
 const TEL = "079 422 55 41";
 const TEL_HREF = "tel:+41794225541";
-const EMAIL = "patrick.weber@intergga.ch";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
     meta: [
       { title: "Aufkleber-Shop & Preise – Weber Beschriftungen Reigoldswil" },
-      { name: "description", content: "Aufkleber für Auto, Motorrad und mehr: Fahrzeuge ab CHF 80.–, Tiere und Dekor ab CHF 30.–, Schriftzüge ab CHF 10.–. Digitaldruck auf Anfrage." },
+      { name: "description", content: "Aufkleber für Auto, Motorrad und mehr, individuelle Buttons ab CHF 1.– sowie eigene Motive im Digitaldruck. Preise und Offerten von Weber Beschriftungen." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:title", content: "Aufkleber-Shop & Preise – Weber Beschriftungen" },
-      { property: "og:description", content: "Alle Aufkleber-Kategorien mit Preisen sowie Digitaldruck und Montage-Tipps." },
+      { property: "og:description", content: "Aufkleber, individuelle Buttons und Digitaldruck mit Ihrem eigenen Motiv – alle Kategorien und Preise." },
     ],
   }),
   component: Shop,
@@ -189,6 +191,7 @@ function Shop() {
               <p className="mt-2 text-sm text-ink-foreground/70">Ihr eigenes Bild oder Logo, farbig gedruckt.</p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <a href="#digitaldruck" className="rounded-sm border border-ink-foreground/30 px-4 py-2 font-semibold hover:border-accent">Eigenes Motiv</a>
+                <a href="#buttons" className="rounded-sm border border-ink-foreground/30 px-4 py-2 font-semibold hover:border-accent">Buttons</a>
               </div>
             </div>
           </div>
@@ -239,7 +242,23 @@ function Shop() {
         </div>
       </section>
 
-      <section className={`scroll-mt-20 ${sectionBg(SHOP.length + 1)}`}>
+      <section id="buttons" className={`scroll-mt-20 ${sectionBg(SHOP.length + 1)}`}>
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-20 md:grid-cols-2">
+          <div>
+            <SectionHead kicker="Vereine · Events · Werbung" title="Ihre eigenen Buttons" />
+            <p className="body-text text-muted-foreground">Bedruckt mit Ihrem Motiv, 59 mm mit Clip – für Vereine, Events, Werbung oder als Geschenk.</p>
+            <p className="mt-6 font-display text-3xl text-primary">ab CHF 1.– / Stk.</p>
+            <p className="mt-2 text-sm text-muted-foreground">Je nach Auflage und Bildbearbeitung, exkl. Versand.</p>
+            <Button asChild className="mt-6 h-12 rounded-sm px-6"><a href="#kontakt">Buttons anfragen</a></Button>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <ReliableImage src={button59Src} width={446} height={452} alt="Button 59 mm mit Clip" loading="lazy" className="aspect-square w-full rounded-md object-contain" />
+            <ReliableImage src={buttonsMotiveSrc} width={348} height={324} alt="Bedruckte Buttons mit verschiedenen Motiven" loading="lazy" className="aspect-square w-full rounded-md object-contain" />
+          </div>
+        </div>
+      </section>
+
+      <section className={`scroll-mt-20 ${sectionBg(SHOP.length + 2)}`}>
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2">
           <div>
             <SectionHead kicker="Gut zu wissen" title="Folien & Montage" />
@@ -271,17 +290,12 @@ function Shop() {
             <h2 className="heading-section">So erreichen Sie uns</h2>
           </div>
           <div>
-            <p className="font-semibold">Autohandel</p>
+            <p className="font-semibold">Autohandel & Garage</p>
             <p className="text-ink-foreground/70">Seewenstrasse 2<br />4418 Reigoldswil</p>
             <p className="mt-6 font-semibold">Beschriftungen</p>
             <p className="text-ink-foreground/70">Hohlegasse 37<br />4104 Oberwil</p>
           </div>
-          <div className="space-y-3">
-            <a href={TEL_HREF} aria-label={`Anrufen: ${TEL}`} className="flex items-center gap-3 rounded-sm bg-primary px-6 py-4 font-semibold text-primary-foreground">
-              <Phone className="h-6 w-6 shrink-0" /> Anrufen: <span className="font-display text-3xl">{TEL}</span>
-            </a>
-            <a href={`mailto:${EMAIL}`} className="block text-ink-foreground/70 hover:text-ink-foreground">{EMAIL}</a>
-          </div>
+          <ContactActions />
         </div>
         <div className="mx-auto max-w-7xl px-6 pb-24">
           <div className="max-w-3xl">
