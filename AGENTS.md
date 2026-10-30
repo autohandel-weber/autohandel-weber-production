@@ -17,3 +17,5 @@
 - The sticker shop lives on its own route (/shop) with catalogue data in src/lib/shop-data.ts and images bundled in src/assets/images/shop, because it is too large for the one-page layout.
 - Shop orders are priced server-side from the catalogue (priceCart) and stored in shop_orders via server-only writes; the browser cart only holds motif ids, quantity and foil option.
 - Close motif selection before displaying cart-action notifications and use TanStack navigation, so modal interaction locks cannot block the cart button.
+- Homepage vehicle selection and remainder counts use src/lib/homepage-data.ts, so displayed stock and the dealer link stay consistent.
+- Homepage and shop contact actions share ContactActions, so phone and WhatsApp styling and destinations stay aligned.
