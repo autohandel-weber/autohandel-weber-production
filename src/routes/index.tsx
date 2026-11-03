@@ -161,8 +161,8 @@ function Index() {
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {visibleCars.map((c) => (
             <a key={c.url} href={c.url} target="_blank" rel="noopener noreferrer" className="group overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-primary">
-              <div className="aspect-[16/9] overflow-hidden bg-muted">
-                <ReliableImage src={c.img} width={800} height={450} referrerPolicy="no-referrer" alt={c.title} loading="lazy" className="h-full w-full object-contain" />
+              <div className="overflow-hidden bg-card">
+                <ReliableImage src={c.img} width={800} height={450} referrerPolicy="no-referrer" alt={c.title} loading="lazy" className="h-auto w-full" />
               </div>
               <div className="p-5">
                 <h3 className="font-semibold leading-snug">{c.title}</h3>
